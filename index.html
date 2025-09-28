@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vehicles For Sale</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <button onclick="location.href='sign-up.html'" type="button">Sign Up</button>
     <button onclick="location.href='sign-in.html'" type="button">Sign In</button>
-    <h1>List of vehicles:</h1>
-    <h2>Toyota Camry</h2>
-    <img src="Vehicle Images/IMG001.png" alt="White Toyota Camry" width="500" height="250">
-    <p>Stock: 10 Price: $25,657</p>
-    <button onclick="location.href='purchase.html'" type="button">Purchase</button>
+    <h1>List Of Vehicles</h1>
+    <div class="catalog-flex" id="catalog-container">
+        <!-- automatically fill this with vehicles from the database -->
+    </div>
+    <script src="main.js"></script>
 </body>
 </html>
