@@ -11,13 +11,14 @@ h1 {
     flex-wrap: wrap; /* Allows items to wrap to the next line */
     gap: 20px; /* Adds space between items */
     padding: 20px;
-    justify-content: space-around; /* Distributes items evenly in a line */
+    justify-content: left; /* Distributes items evenly in a line */
 }
 
 .catalog-item {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     padding: 20px;
+    max-width: 300px;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     /* Make items flexible and ensure a minimum width */
@@ -26,9 +27,11 @@ h1 {
 
 .catalog-item > img {
     max-width: 300px;
-    height: 200px; /* Automatically adjust height to maintain aspect ratio */
+    height: 200px; /*set the height to keep images the same size*/
     display: block; /* Removes extra space below the image */
-    overflow: hidden; 
+    margin: 0 auto; /* Centers the image horizontally */
+    overflow: hidden;
+    object-fit: contain;
     border: 1px solid black;
 }
 
