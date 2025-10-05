@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicles For Sale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <button onclick="location.href='sign-up.html'" type="button">Sign Up</button>
+    <button onclick="location.href='sign-in.html'" type="button">Sign In</button>
+    <h1>List Of Vehicles</h1>
+    <div class="catalog-flex" id="catalog-container">
+        <!-- automatically fill this with vehicles from the database -->
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.catalog-flex {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    gap: 20px; /* Adds space between items */
+    padding: 20px;
+    justify-content: left; /* Distributes items evenly in a line */
+}
+
+.catalog-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Make items flexible and ensure a minimum width */
+    flex: 1 1 250px;
+}
+
+.catalog-item > img {
+    max-width: 300px;
+    height: 200px; /*set the height to keep images the same size*/
+    display: block; /* Removes extra space below the image */
+    margin: 0 auto; /* Centers the image horizontally */
+    overflow: hidden;
+    object-fit: contain;
+}
+
+button {
+    font-family: Arial, sans-serif;
+}
+
+.catalog-item > button {
+    width: 10em;
+    height: 2.5em;
+    background-color: #d8c038;
+}
