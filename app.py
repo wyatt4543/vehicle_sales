@@ -8,6 +8,10 @@ def home():
     # Serve your HTML page
     return render_template('index.html')
 
+@app.route('/purchase')
+def purchase():
+    return render_template('purchase.html')
+
 @app.route('/get-data')
 def get_data():
     config = {

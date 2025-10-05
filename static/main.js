@@ -17,8 +17,8 @@ function renderProducts(number) {
         item.classList.add('catalog-item');
         item.innerHTML = `<h2>${vehicleData[i].make} ${vehicleData[i].model}</h2>
         <p> Stock: ${vehicleData[i].stock} Price: $${vehicleData[i].price.toLocaleString()}</p>
-        <img src="/static/Vehicle Images/IMG${String(i + 1).padStart(3, '0')}.png" alt="${vehicleData[i].make} ${vehicleData[i].model}" width="500" height="250">
-        <button onclick="location.href='purchase.html'" type="button">Purchase</button>`
+        <img src="/static/Vehicle Images/IMG${String(i + 1).padStart(3, '0')}.png" alt="${vehicleData[i].make} ${vehicleData[i].model}">
+        <button onclick="location.href='/purchase'" type="button">Purchase</button>`
         container.appendChild(item);
     };
 }
