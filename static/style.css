@@ -25,9 +25,10 @@ h1 {
 }
 
 .catalog-item > img {
-    max-width: 100%;
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    max-width: 300px;
+    height: 200px; /* Automatically adjust height to maintain aspect ratio */
     display: block; /* Removes extra space below the image */
+    overflow: hidden; 
     border: 1px solid black;
 }
 
@@ -36,7 +37,7 @@ button {
 }
 
 .catalog-item > button {
-    width: 50%;
-    height: 10%;
+    width: 10em;
+    height: 2.5em;
     background-color: #d8c038;
 }
