@@ -5,12 +5,25 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    # Serve your HTML page
+    # Serve the home page
     return render_template('index.html')
 
+# Serve the various different pages
 @app.route('/purchase')
 def purchase():
     return render_template('purchase.html')
+
+@app.route('/sign-up')
+def sign_up():
+    return render_template('sign-up.html')
+
+@app.route('/sign-in')
+def sign_in():
+    return render_template('sign-in.html')
+
+@app.route('/forgot-password')
+def forgot_password():
+    return render_template('forgot-password.html')
 
 @app.route('/get-data')
 def get_data():
