@@ -1,0 +1,7 @@
+nav {
+    button {background-color:hsl(198, 87%, 43%);
+            color: white;
+            font-weight: bold;
+            font-size: 20px;}
+    button:hover {background-color: hsl(198, 85%, 37%)}
+}
