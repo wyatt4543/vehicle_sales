@@ -2,8 +2,12 @@ nav {
     button {background-color:hsl(198, 87%, 43%);
             color: white;
             font-weight: bold;
-            font-size: 20px;}
-    button:hover {background-color: hsl(198, 85%, 37%)}
+            font-size: 20px;
+            margin-top: 0.5em;
+            margin-left: 0.5em;
+            padding: 5px;}
+    button:hover {background-color: hsl(198, 85%, 37%);}
+    button:active {box-shadow: inset 0px 0px 0.5em black;}
 }
 
 body {
