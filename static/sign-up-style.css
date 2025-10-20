@@ -5,3 +5,17 @@ nav {
             font-size: 20px;}
     button:hover {background-color: hsl(198, 85%, 37%)}
 }
+
+body {
+    background-color:antiquewhite;
+    h1 {
+        text-align:center;
+    }
+    form {background-color: white;
+          text-align:center;
+          max-width: 300px;
+          padding-top: 2em;
+          padding-bottom: 2em;
+          margin: auto;
+          box-shadow: 0px 0px 0.5em;}
+}
