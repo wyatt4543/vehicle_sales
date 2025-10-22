@@ -14,9 +14,12 @@ body {
     background-color:antiquewhite;
     h1 {
         text-align:center;
+        font-family: arial;
     }
     form {background-color: white;
           text-align:center;
+          font-weight: bold;
+          font-family: arial;
           max-width: 300px;
           padding-top: 2em;
           padding-bottom: 2em;
