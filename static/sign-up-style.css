@@ -11,10 +11,11 @@ nav {
 }
 
 body {
-    background-color:antiquewhite;
+    background-color:white;
     h1 {text-align:center;
         font-family: arial;}
-    form {background-color: white;
+    form {background-color:rgb(240, 240, 240);
+          outline: black;
           text-align:center;
           font-weight: bold;
           font-family: arial;
