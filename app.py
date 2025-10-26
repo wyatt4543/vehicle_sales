@@ -25,6 +25,7 @@ def sign_in():
 def forgot_password():
     return render_template('forgot-password.html')
 
+#code for loading vehicles on the vehicle selection page
 @app.route('/get-data')
 def get_data():
     config = {
@@ -48,3 +49,6 @@ def get_data():
             cnx.close()
 
     return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
