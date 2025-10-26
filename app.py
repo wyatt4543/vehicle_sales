@@ -3,6 +3,14 @@ import mysql.connector
 
 app = Flask(__name__)
 
+config = {
+    'host': 'fplg27.h.filess.io',
+    'user': 'VehicleSales_selection',
+    'password': '3964f4ec577fce81b6857f4807a2dee1e5e94ad3',
+    'port': '61032',
+    'database': 'VehicleSales_selection'
+}
+
 @app.route('/')
 def home():
     # Serve the home page
@@ -13,10 +21,12 @@ def home():
 def purchase():
     return render_template('purchase.html')
 
+# code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     app.logger.info("sign up page loaded")
     if request.method == 'POST':
+        #get all of the information for creating an account
         first_name = request.form['first-name']
         last_name = request.form['last-name']
         username = request.form['username']
@@ -45,14 +55,6 @@ def forgot_password():
 #code for loading vehicles on the vehicle selection page
 @app.route('/get-data')
 def get_data():
-    config = {
-        'host': 'fplg27.h.filess.io',
-        'user': 'VehicleSales_selection',
-        'password': '3964f4ec577fce81b6857f4807a2dee1e5e94ad3',
-        'port': '61032',
-        'database': 'VehicleSales_selection'
-    }
-
     try:
         cnx = mysql.connector.connect(**config)
         cursor = cnx.cursor(dictionary=True)
