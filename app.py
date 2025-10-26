@@ -15,11 +15,13 @@ def purchase():
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    app.logger.info("le epic test")
+    app.logger.info("sign up page loaded")
     if request.method == 'POST':
-        #username = request.form['username']
-        #password = request.form['password']
-        #email = request.form['email']
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
 
         #hashed_password = generate_password_hash(password)
 
@@ -28,7 +30,7 @@ def sign_up():
                        #(username, hashed_password, email))
         #mysql.connection.commit()
         #cursor.close()
-        app.logger.info("the data in request: " + str(request.get_data(as_text=True)))
+        app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
         return redirect('sign-in')
     return render_template('sign-up.html')
 
