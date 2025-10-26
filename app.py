@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect
 import mysql.connector
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ def purchase():
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    return render_template('sign-up.html')
+    app.logger.info("le epic test")
     if request.method == 'POST':
         #username = request.form['username']
         #password = request.form['password']
@@ -28,8 +28,9 @@ def sign_up():
                        #(username, hashed_password, email))
         #mysql.connection.commit()
         #cursor.close()
-        print(request.form)
-        return redirect('sign-in.html')
+        app.logger.info("whyyyyyyy" + str(request.form))
+        return redirect('sign-in')
+    return render_template('sign-up.html')
 
 @app.route('/sign-in')
 def sign_in():
