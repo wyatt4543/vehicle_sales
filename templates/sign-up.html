@@ -12,7 +12,7 @@
         <button onclick="location.href='/'" type="button">Home</button>
     </nav>
     <h1>Sign Up</h1>
-    <form action="/sign-up" method="post">
+    <form action="/sign-up" method="post" onsubmit="return validatePassword()">
         <label for="first-name">First name</label><br>
         <input type="text" id="first-name" name="first-name"><br><br>
 
@@ -33,5 +33,6 @@
 
         <input type="submit" value="Sign Up">
     </form>
+    <script src="{{ url_for('static', filename='sign-up.js') }}"></script>
 </body>
 </html>
