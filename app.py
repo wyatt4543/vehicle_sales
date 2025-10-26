@@ -13,9 +13,23 @@ def home():
 def purchase():
     return render_template('purchase.html')
 
-@app.route('/sign-up')
+@app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     return render_template('sign-up.html')
+    if request.method == 'POST':
+        #username = request.form['username']
+        #password = request.form['password']
+        #email = request.form['email']
+
+        #hashed_password = generate_password_hash(password)
+
+        #cursor = mysql.connection.cursor()
+        #cursor.execute("INSERT INTO users (username, password_hash, email) VALUES (%s, %s, %s)",
+                       #(username, hashed_password, email))
+        #mysql.connection.commit()
+        #cursor.close()
+        print(request.form)
+        return redirect('sign-in.html')
 
 @app.route('/sign-in')
 def sign_in():
