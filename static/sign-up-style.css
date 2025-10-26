@@ -1,21 +1,14 @@
 nav {
-    background-color: hsl(198, 87%, 43%);
-    padding-bottom: 0.75em;
-    button {background-color:white;
-            color: hsl(198, 87%, 43%);
+    button {background-color:hsl(198, 87%, 43%);
+            color: white;
             font-weight: bold;
             font-size: 20px;
             margin-top: 0.5em;
             margin-left: 0.5em;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 5px;
-            padding-bottom: 5px;}
+            padding: 5px;}
     button:hover {background-color: hsl(198, 85%, 37%);
                   color: #eaeaea;}
-    button:active {box-shadow: inset 0px 0px 0.5em black;
-                   background-color: hsl(198, 86%, 30%);
-                   color: #cbcbcb;}
+    button:active {box-shadow: inset 0px 0px 0.5em black;}
 }
 
 body {
