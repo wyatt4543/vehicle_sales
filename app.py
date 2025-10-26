@@ -28,7 +28,7 @@ def sign_up():
                        #(username, hashed_password, email))
         #mysql.connection.commit()
         #cursor.close()
-        app.logger.info("the data in request: " + str(request.get_data(as_text=True))
+        app.logger.info("the data in request: " + str(request.get_data(as_text=True)))
         return redirect('sign-in')
     return render_template('sign-up.html')
 
