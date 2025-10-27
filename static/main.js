@@ -24,11 +24,11 @@ function renderProducts(number) {
 }
 
 function dropDown() {
-    const element = document.getElementById('dropdownContent');
-    if (element.style.visibility === 'hidden') {
-        element.style.visibility = 'visible';
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (dropdownContent.style.visibility === 'hidden') {
+        dropdownContent.style.visibility = 'visible';
     } else {
-        element.style.visibility = 'hidden';
+        dropdownContent.style.visibility = 'hidden';
     }
 }
 
