@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, flash, session
 import mysql.connector
 import bcrypt
 
@@ -33,7 +33,7 @@ def sign_up():
         email = request.form['email']
         password = request.form['password']
 
-        #hash the password
+        #hash the password and format the password for hashing
         plain_password_bytes = password.encode('utf-8')
         hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
 
@@ -58,8 +58,45 @@ def sign_up():
 @app.route('/sign-in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'POST':
-        #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
-        return redirect('/')
+        #get all of the information for logging into an account
+        username = request.form['username']
+        password = request.form['password']
+        result = ()
+
+        #retrieve the user from the database
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
+            result = cursor.fetchone()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        #format password for being compared to hashed password
+        plain_password_bytes = password.encode('utf-8')
+
+        #check if user exists
+        if result:
+            stored_hashed_password = result[0]
+            
+            #format hashed password for being compared to password
+            hashed_password_bytes = stored_hashed_password.encode('utf-8')
+            
+            # Compare the user-submitted password with the stored hash
+            if bcrypt.checkpw(plain_password_bytes, hashed_password_bytes):
+                # Password matches, log the user in
+                session['username'] = username
+                return redirect('/')
+            else:
+                # Password does not match
+                flash('Invalid username or password', 'error')
+        else:
+            # Username not found
+            flash('Invalid username or password', 'error')
     return render_template('sign-in.html')
     
 
@@ -85,4 +122,6 @@ def get_data():
     return jsonify(data)
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug=True)
