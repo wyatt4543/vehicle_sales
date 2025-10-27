@@ -7,8 +7,32 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
-    <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+    <nav>
+        {% if session["username"] %}
+            {% if session["username"] == "Admin" %}
+                <div class="dropdown">
+                    <button onclick="dropDown()" class="dropbtn">Manager</button>
+                    <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                        <a href="#">Link 1</a><br>
+                        <a href="#">Link 2</a><br>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div> 
+            {% else %}
+                <div class="dropdown">
+                    <button onclick="dropDown()" class="dropbtn">User</button>
+                    <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                        <a href="#">Link 1</a><br>
+                        <a href="#">Link 2</a><br>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div> 
+            {% endif %}
+        {% else %}
+            <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
+            <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+        {% endif %}
+    </nav>
     <h1>List Of Vehicles</h1>
     <div class="catalog-flex" id="catalog-container">
         <!-- automatically fill this with vehicles from the database -->

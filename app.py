@@ -14,6 +14,9 @@ config = {
 
 @app.route('/')
 def home():
+    if 'username' in session:
+        username = session['username']
+        app.logger.info(username)
     # Serve the home page
     return render_template('index.html')
 
@@ -99,6 +102,11 @@ def sign_in():
             flash('Invalid username or password', 'error')
     return render_template('sign-in.html')
     
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 @app.route('/forgot-password')
 def forgot_password():
