@@ -25,6 +25,31 @@ def home():
 def purchase():
     return render_template('purchase.html')
 
+# recieve purchase information
+@app.route('/purchase-info', methods=['POST'])
+def purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        # Process the received JSON data
+        print(f"Received JSON data: {data.get('emailPurchase')}")
+        
+        #update vehicle stock in the database
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return 'success'
+    else:
+        return 'bad data'
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
