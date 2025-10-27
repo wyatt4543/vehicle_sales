@@ -55,10 +55,13 @@ def sign_up():
         return redirect('sign-in')
     return render_template('sign-up.html')
 
-@app.route('/sign-in')
+@app.route('/sign-in', methods=['GET', 'POST'])
 def sign_in():
+    if request.method == 'POST':
+        #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
+        return redirect('/')
     return render_template('sign-in.html')
-    #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
+    
 
 @app.route('/forgot-password')
 def forgot_password():
