@@ -56,7 +56,7 @@ header {
     width: 35%;
 }
 
-.vehicle-image {
+.vehicle-image-container {
     width: 100%;
     height: 180px;
     background-color: #ccc;
