@@ -1,4 +1,10 @@
-﻿document.getElementById("confirmButton").addEventListener("click", function () {
+﻿let make = localStorage.getItem('make');
+let model = localStorage.getItem('model');
+
+let vehicleName = document.getElementById('vehicle-name');
+vehicleName.innerHTML = `${make} ${model}`;
+
+document.getElementById("confirmButton").addEventListener("click", function () {
     // Gather form elements
     const name = document.getElementById("name").value.trim();
     const address = document.getElementById("address").value.trim();
