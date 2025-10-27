@@ -85,4 +85,6 @@ document.getElementById("confirmButton").addEventListener("click", function () {
         },
         body: JSON.stringify(purchaseData) // Convert JavaScript object to JSON string
     })
+
+    window.location.href = '/';
 });
