@@ -42,7 +42,7 @@ def sign_up():
                        (first_name, last_name, username, email, hashed_password))
             mysql.connection.commit()
         except mysql.connector.Error as err:
-            app.logger.info("error": str(err))
+            app.logger.info("error:" + str(err))
         finally:
             cursor.close()
         #cursor = mysql.connection.cursor()
