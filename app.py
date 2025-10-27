@@ -30,15 +30,16 @@ def purchase():
 def purchase_info():
     if request.is_json:
         data = request.get_json()
-        # Process the received JSON data
-        print(f"Received JSON data: {data.get('emailPurchase')}")
+        emailPurchase = data.get('emailPurchase')
         
-        #update vehicle stock in the database
+        #update vehicle stock in the database and email user if needed
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
             cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
             cnx.commit()
+            if emailPurchase == True:
+                app.logger.info("email user")
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
         finally:
@@ -89,7 +90,7 @@ def sign_in():
         #get all of the information for logging into an account
         username = request.form['username']
         password = request.form['password']
-        result = ()
+        result = ""
 
         #retrieve the user from the database
         try:
