@@ -14,6 +14,9 @@ config = {
 
 @app.route('/')
 def home():
+    if 'username' in session:
+        username = session['username']
+        app.logger.info(username)
     # Serve the home page
     return render_template('index.html')
 
