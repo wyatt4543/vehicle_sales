@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, flash
+from flask import Flask, render_template, jsonify, request, redirect, flash, session
 import mysql.connector
 import bcrypt
 
@@ -122,4 +122,6 @@ def get_data():
     return jsonify(data)
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug=True)
