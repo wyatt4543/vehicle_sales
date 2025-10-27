@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, flash, session
+from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
 import mysql.connector
 import bcrypt
 
@@ -47,9 +47,9 @@ def purchase_info():
                 cursor.close()
                 cnx.close()
 
-        return 'success'
+        return 'success', 200
     else:
-        return 'bad data'
+        return 'bad data', 400
 
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])

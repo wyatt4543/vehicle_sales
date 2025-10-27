@@ -85,6 +85,13 @@ document.getElementById("confirmButton").addEventListener("click", function () {
         },
         body: JSON.stringify(purchaseData) // Convert JavaScript object to JSON string
     })
+    .then(response => {
+        // Check if the server responded successfully (status 200-299)
+        if (!response.ok) {
+            // Throw an error if the server returned a 4xx or 5xx status
+            throw new Error('Server error: ' + response.statusText);
+        }
 
-    window.location.href = '/';
+        window.location.href = '/'; // Redirect to your desired success page
+    })
 });
