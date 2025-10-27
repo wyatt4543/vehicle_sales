@@ -6,6 +6,15 @@
     <title>Sign In</title>
 </head>
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <h1>Sign In</h1>
     <form action="/sign-in" method="post">
         <label for="username">Username</label><br>
