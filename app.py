@@ -103,6 +103,11 @@ def sign_in():
     return render_template('sign-in.html')
     
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
 @app.route('/forgot-password')
 def forgot_password():
     return render_template('forgot-password.html')
