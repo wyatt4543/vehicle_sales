@@ -23,3 +23,12 @@ function renderProducts(number) {
     };
 }
 
+function dropDown() {
+    const element = document.getElementById('dropdownContent');
+    if (element.style.visibility === 'hidden') {
+        element.style.visibility = 'visible';
+    } else {
+        element.style.visibility = 'hidden';
+    }
+}
+

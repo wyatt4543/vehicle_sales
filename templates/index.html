@@ -10,7 +10,14 @@
     <nav>
         {% if session["username"] %}
             {% if session["username"] == "Admin" %}
-                <button onclick="location.href='/'" type="button">Manager</button>
+                <div class="dropdown">
+                    <button onclick="dropDown()" class="dropbtn">Manager</button>
+                    <div id="dropdownContent" class="dropdown-content">
+                        <a href="#">Link 1</a><br>
+                        <a href="#">Link 2</a><br>
+                        <a href="/logout">Logout</a>
+                    </div>
+                </div> 
             {% else %}
                 <button onclick="location.href='/'" type="button">User</button>
             {% endif %}
