@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, flash
 import mysql.connector
 import bcrypt
 
@@ -82,18 +82,21 @@ def sign_in():
         #check if user exists
         if result:
             stored_hashed_password = result[0]
+            
+            #format hashed password for being compared to password
+            hashed_password_bytes = stored_hashed_password.encode('utf-8')
+            
             # Compare the user-submitted password with the stored hash
-            if bcrypt.checkpw(stored_hashed_password, plain_password_bytes):
-                return 'good password'
+            if bcrypt.checkpw(plain_password_bytes, hashed_password_bytes):
                 # Password matches, log the user in
-                #session['username'] = username
-                #return redirect(url_for('dashboard'))
-        #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
+                session['username'] = username
+                return redirect('/')
+            else:
+                # Password does not match
+                flash('Invalid username or password', 'error')
         else:
             # Username not found
-            return 'Invalid username or password'
-
-        return redirect('sign-in')
+            flash('Invalid username or password', 'error')
     return render_template('sign-in.html')
     
 
