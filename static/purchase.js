@@ -1,8 +1,14 @@
 ﻿let make = localStorage.getItem('make');
 let model = localStorage.getItem('model');
+let price = localStorage.getItem('price');
+let vehicleID = localStorage.getItem('vehicleID');
 
 let vehicleName = document.getElementById('vehicle-name');
 vehicleName.innerHTML = `${make} ${model}`;
+
+let vehicleImage = document.getElementById('vehicle-image')
+vehicleImage.src = `/static/Vehicle Images/IMG${vehicleID}.png`
+vehicleImage.alt = `${make} ${model}`
 
 document.getElementById("confirmButton").addEventListener("click", function () {
     // Gather form elements
