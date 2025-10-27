@@ -40,7 +40,7 @@ def sign_up():
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
             cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, username, email, hashed_password))
-            mysql.connection.commit()
+            cnx.commit()
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
         finally:
