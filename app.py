@@ -34,8 +34,8 @@ def sign_up():
         password = request.form['password']
 
         #hash the password
-        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt( 13 ))
-        app.logger.info(bcrypt.checkpw(password, hashed_password))
+        plain_password_bytes = password.encode('utf-8')
+        hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
 
         #insert the new user into the database
         try:
@@ -58,6 +58,7 @@ def sign_up():
 @app.route('/sign-in')
 def sign_in():
     return render_template('sign-in.html')
+    #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
 
 @app.route('/forgot-password')
 def forgot_password():
