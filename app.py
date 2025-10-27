@@ -37,19 +37,16 @@ def sign_up():
         hashed_password = password
 
         try:
-            cursor = mysql.connector.connect(**config).cursor
-            cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)",
-                       (first_name, last_name, username, email, hashed_password))
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, username, email, hashed_password))
             mysql.connection.commit()
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
         finally:
-            cursor.close()
-        #cursor = mysql.connection.cursor()
-        #cursor.execute("INSERT INTO users (username, password_hash, email) VALUES (%s, %s, %s)",
-                       #(username, hashed_password, email))
-        #mysql.connection.commit()
-        #cursor.close()
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
         app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
         return redirect('sign-in')
     return render_template('sign-up.html')
