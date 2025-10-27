@@ -41,7 +41,7 @@ document.getElementById("confirmButton").addEventListener("click", function () {
         return;
     }
 
-    // Optional: Basic format check for card number and CVV
+    // Basic format check for card number and CVV
     const cardNumPattern = /^\d{16}$/; // 16 digits
     const cvvPattern = /^\d{3,4}$/;    // 3 or 4 digits
 
