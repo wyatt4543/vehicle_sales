@@ -33,7 +33,7 @@ def sign_up():
         email = request.form['email']
         password = request.form['password']
 
-        #hash the password
+        #hash the password and format the password for hashing
         plain_password_bytes = password.encode('utf-8')
         hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
 
@@ -58,8 +58,42 @@ def sign_up():
 @app.route('/sign-in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'POST':
+        #get all of the information for logging into an account
+        username = request.form['username']
+        password = request.form['password']
+        result = ()
+
+        #retrieve the user from the database
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
+            result = cursor.fetchone()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        #format password for being compared to hashed password
+        plain_password_bytes = password.encode('utf-8')
+
+        #check if user exists
+        if result:
+            stored_hashed_password = result[0]
+            # Compare the user-submitted password with the stored hash
+            if bcrypt.checkpw(stored_hashed_password, plain_password_bytes):
+                return 'good password'
+                # Password matches, log the user in
+                #session['username'] = username
+                #return redirect(url_for('dashboard'))
         #app.logger.info(bcrypt.checkpw(plain_password_bytes, hashed_password))
-        return redirect('/')
+        else:
+            # Username not found
+            return 'Invalid username or password'
+
+        return redirect('sign-in')
     return render_template('sign-in.html')
     
 
