@@ -34,7 +34,17 @@ def sign_up():
         password = request.form['password']
 
         #hashed_password = generate_password_hash(password)
+        hashed_password = password
 
+        try:
+            cursor = mysql.connector.connect(**config).cursor
+            cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)",
+                       (first_name, last_name, username, email, hashed_password))
+            mysql.connection.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error": str(err))
+        finally:
+            cursor.close()
         #cursor = mysql.connection.cursor()
         #cursor.execute("INSERT INTO users (username, password_hash, email) VALUES (%s, %s, %s)",
                        #(username, hashed_password, email))
