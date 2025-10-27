@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
-    <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+    <nav>
+        {% if session["username"] %}
+            {% if session["username"] == "Admin" %}
+                <button onclick="location.href='/'" type="button">Manager</button>
+            {% else %}
+                <button onclick="location.href='/'" type="button">User</button>
+            {% endif %}
+        {% else %}
+            <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
+            <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+        {% endif %}
+    </nav>
     <h1>List Of Vehicles</h1>
     <div class="catalog-flex" id="catalog-container">
         <!-- automatically fill this with vehicles from the database -->
