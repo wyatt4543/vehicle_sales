@@ -4,23 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create Your Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sign-up-style.css') }}">
+
 </head>
 <body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+    </nav>
     <h1>Sign Up</h1>
-    <form action="/">
+    <form action="/sign-up" method="post" onsubmit="return validatePassword()">
         <label for="first-name">First name</label><br>
-        <input type="text" id="first-name"><br><br>
+        <input type="text" id="first-name" name="first-name"><br><br>
+
         <label for="last-name">Last name</label><br>
-        <input type="text" id="last-name"><br><br>
+        <input type="text" id="last-name" name="last-name"><br><br>
+
         <label for="username">Username</label><br>
-        <input type="text" id="username"><br><br>
+        <input type="text" id="username" name="username"><br><br>
+
         <label for="email">Email</label><br>
-        <input type="text" id="email"><br><br>
+        <input type="email" id="email" name="email"><br><br>
+
         <label for="password">Password</label><br>
-        <input type="text" id="password"><br><br>
+        <input type="password" id="password" name="password"><br><br>
+
         <label for="confirm-pass">Confirm Passord</label><br>
-        <input type="text" id="confirm-pass"><br><br>
+        <input type="password" id="confirm-pass" name="confirm-pass"><br><br>
+
         <input type="submit" value="Sign Up">
     </form>
+    <script src="{{ url_for('static', filename='sign-up.js') }}"></script>
 </body>
 </html>
