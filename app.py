@@ -24,7 +24,6 @@ def purchase():
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
-    app.logger.info("sign up page loaded")
     if request.method == 'POST':
         #get all of the information for creating an account
         first_name = request.form['first-name']
@@ -34,8 +33,10 @@ def sign_up():
         password = request.form['password']
 
         #hashed_password = generate_password_hash(password)
+        #hash the password
         hashed_password = password
 
+        #insert the new user into the database
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
@@ -47,6 +48,8 @@ def sign_up():
             if 'cnx' in locals() and cnx.is_connected():
                 cursor.close()
                 cnx.close()
+
+        #move the user to the login page
         app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
         return redirect('sign-in')
     return render_template('sign-up.html')
