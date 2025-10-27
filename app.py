@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request, redirect
 import mysql.connector
+import bcrypt
 
 app = Flask(__name__)
 
@@ -32,9 +33,9 @@ def sign_up():
         email = request.form['email']
         password = request.form['password']
 
-        #hashed_password = generate_password_hash(password)
         #hash the password
-        hashed_password = password
+        hashed_password = bcrypt.hashpw(password, bcrypt.gensalt( 13 ))
+        app.logger.info(bcrypt.checkpw(password, hashed_password))
 
         #insert the new user into the database
         try:
