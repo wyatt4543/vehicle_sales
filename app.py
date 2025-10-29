@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
 import mysql.connector
 import bcrypt
+import smtplib
 
 app = Flask(__name__)
 
@@ -38,14 +39,32 @@ def purchase_info():
             cursor = cnx.cursor()
             cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
             cnx.commit()
-            if emailPurchase == True:
-                app.logger.info("email user")
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
         finally:
             if 'cnx' in locals() and cnx.is_connected():
                 cursor.close()
                 cnx.close()
+
+        #check if the user should be emailed
+        try:
+            if emailPurchase == True:
+                email = "vehiclesalesbot@gmail.com"
+                reciever_email = "w4543w@gmail.com"
+
+                text = "Subject: Reciept Details\n\nThe car costed $1,000"
+                
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.starttls()
+
+                server.login(email, "1tarl4TARL!#")
+                
+                server.sendmail(email, reciever_email, text)
+
+                app.logger.info("Email has been sent to " + reciever_email)
+
+        except Exception as e:
+            app.logger.exception(f"An unexpected error occurred: {e}")
 
         return 'success', 200
     else:
