@@ -4,7 +4,7 @@ const mailContainer = document.getElementById('mail-form');
 const paymentContainer = document.getElementById('payment-form');
 
 window.addEventListener('load', async () => {
-    const res = await fetch('/get-payment-mail-data');
+    const res = await fetch('/get-user-data');
     paymentMailData = await res.json();
     renderPaymentMailInfo();
 });

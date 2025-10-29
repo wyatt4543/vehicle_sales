@@ -334,6 +334,21 @@ def get_user_data():
                 cnx.close()
 
         return jsonify(data)
+    else:
+        #get the logged in user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (session['username'],))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
