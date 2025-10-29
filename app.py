@@ -69,7 +69,7 @@ def purchase_info():
                 if customer_email == "":
                     raise Exception("email not found.")
 
-                #insert the order's details into the database
+                #insert the order's details into the databasea
                 cnx = mysql.connector.connect(**config)
                 cursor = cnx.cursor()
                 cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
