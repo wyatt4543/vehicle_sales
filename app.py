@@ -35,6 +35,7 @@ def purchase_info():
         customer = data.get('customer')
         vehicleName = data.get('vehicleName')
         vehiclePrice = data.get('vehiclePrice')
+        deliveryCode = data.get('deliveryCode')
         
         #update vehicle stock in the database and email user if needed
         try:
@@ -70,7 +71,10 @@ def purchase_info():
                 email = "vehiclesalesbot@gmail.com"
 
                 text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}"
-                
+                #check if the user has a pick-up code
+                if deliveryCode != -1:
+                    text += f"\r\n\r\nThe pick-up code is: {deliveryCode}"
+
                 server = smtplib.SMTP("smtp.gmail.com", 587)
                 server.starttls()
 
