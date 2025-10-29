@@ -110,7 +110,6 @@ document.getElementById("confirmButton").addEventListener("click", async functio
             city: city,
             state: state,
             zip: zip,
-            cardName: cardName,
             cardNumber: cardNumber,
             expDate: expDate,
             cvv: cvv,
