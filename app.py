@@ -141,12 +141,13 @@ def update_user():
         last_name = request.form['last-name']
         new_username = request.form['new_username']
         email = request.form['email']
+        username = request.form['username']
 
         #update the selected user's information
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
-            cursor.execute("UPDATE vehicles SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s", (first_name, last_name, new_username, email, username))
+            cursor.execute("UPDATE users SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s;", (first_name, last_name, new_username, email, username))
             cnx.commit()
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
