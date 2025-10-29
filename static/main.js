@@ -16,7 +16,7 @@ function renderProducts(number) {
         item.innerHTML = `<h2>${vehicleData[i].make} ${vehicleData[i].model}</h2>
         <p> Stock: ${vehicleData[i].stock} Price: $${vehicleData[i].price.toLocaleString()}</p>
         <img src="/static/Vehicle Images/IMG${String(vehicleData[i].vehicleID).padStart(3, '0')}.png" alt="${vehicleData[i].make} ${vehicleData[i].model}">
-        <button onclick="transferPurchase(${i})" type="button" id="purchase">Purchase</button>`
+        <button onclick="transferPurchase(${i})" type="button" id="purchase">Purchase</button>`;
         container.appendChild(item);
     };
 }
