@@ -25,7 +25,11 @@ def home():
 # Serve the various different pages
 @app.route('/purchase')
 def purchase():
-    return render_template('purchase.html')
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('purchase.html')
+    else:
+        return redirect('sign-in')
 
 # recieve purchase information
 @app.route('/purchase-info', methods=['POST'])
