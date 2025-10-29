@@ -10,11 +10,11 @@
         <button onclick="location.href='/'" type="button">Home</button>
     </nav>
     <h1>Enter User</h1>
-    <form onsubmit="getUser()" id="user-form">
+    <form id="user-form">
         <label for="username">Username</label><br>
         <input type="text" id="username" name="username"><br><br>
-
-        <input type="submit" value="Submit">
+        
+        <button id="submit" onclick="getUser()">Submit</button>
     </form>
     <script src="{{ url_for('static', filename='update-user.js') }}"></script>
 </body>

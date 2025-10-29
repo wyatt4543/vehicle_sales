@@ -17,7 +17,6 @@ async function getUser() {
 
 function renderUserInfo() {
     // change the form for new information submission
-    myForm.removeAttribute("onsubmit");
     myForm.setAttribute("action", "/update-user");
     myForm.setAttribute("method", "post");
 
