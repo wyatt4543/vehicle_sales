@@ -1,9 +1,16 @@
 let userData = [];
 
 const container = document.getElementById('user-form');
+const userElement = document.getElementById('username');
 
 async function getUser() {
-    const res = await fetch('/get-user-data');
+    const res = await fetch('/get-user-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userElement.value)
+    });
     userData = await res.json();
     renderUserInfo();
 };
