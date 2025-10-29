@@ -107,8 +107,8 @@ def purchase_info():
         return 'bad data', 400
 
 # recieve purchase information
-@app.route('/purchase-info', methods=['POST'])
-def purchase_info():
+@app.route('/save-purchase-info', methods=['POST'])
+def save_purchase_info():
     if request.is_json:
         data = request.get_json()
         address = data.get('address')
