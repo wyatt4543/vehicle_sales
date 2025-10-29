@@ -102,10 +102,28 @@ document.getElementById("confirmButton").addEventListener("click", async functio
 
     if (saveInfo) {
         message += "\n\n💾 Your information has been saved for future purchases.";
-        // Example localStorage save (for demo)
-        localStorage.setItem("savedUserInfo", JSON.stringify({
-            cardName, address, city, state, zip, cardName
-        }));
+
+        // Store the purchase information in a constant
+        const purchaseInfo = {
+            address: address,
+            address2: address2,
+            city: city,
+            state: state,
+            zip: zip,
+            cardName: cardName,
+            cardNumber: cardNumber,
+            expDate: expDate,
+            cvv: cvv,
+        };
+
+        // Save payment & mailing information to the database
+        fetch('/save-purchase-info', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Important for JSON data
+            },
+            body: JSON.stringify(purchaseInfo) // Convert JavaScript object to JSON string
+        })
     }
 
     alert(message);
