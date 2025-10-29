@@ -75,6 +75,7 @@ document.getElementById("confirmButton").addEventListener("click", function () {
     const purchaseData = {
         vehicleID: parseInt(vehicleID),
         emailPurchase: emailPurchase,
+        customer: name,
         vehicleName: make + " " + model,
         vehiclePrice: price,
     };
