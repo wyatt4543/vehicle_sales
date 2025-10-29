@@ -131,6 +131,35 @@ def vehicle_inventory():
                 cnx.close()
     return render_template('vehicle-inventory.html')
 
+
+# code for updating user information
+@app.route('/update-user', methods=['GET', 'POST'])
+def update_user():
+    if request.method == 'POST':
+        #get all of the information for the vehicle stock update
+        name = request.form['name']
+        stock = request.form['stock']
+        price = request.form['price']
+        make, model = name.split(' ', 1)
+
+        #update the selected vehicle
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE make = %s AND model = %s", (stock, price, make, model))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    # check if the user is an admin
+    if session['username'] == "Admin":
+        return render_template('update-user.html')
+    else:
+        return "no permission"
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -251,6 +280,8 @@ def get_order_data():
             cnx.close()
 
     return jsonify(data)
+
+#SELECT * FROM users WHERE username = 'john_doe';
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
