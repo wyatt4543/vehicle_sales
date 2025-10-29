@@ -62,6 +62,7 @@ def purchase_info():
                 if 'cnx' in locals() and cnx.is_connected():
                     cursor.close()
                     cnx.close()
+                customer_email = customer_email[0]
                 if customer_email == "":
                     raise Exception("email not found.")
 
