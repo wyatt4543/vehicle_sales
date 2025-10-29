@@ -15,8 +15,8 @@ vehiclePrice.innerHTML = `$${price}`;
 
 document.getElementById("confirmButton").addEventListener("click", async function () {
     // Gather form elements
-    const name = document.getElementById("name").value.trim();
     const address = document.getElementById("address").value.trim();
+    const address2 = document.getElementById("address2").value.trim();
     const city = document.getElementById("city").value.trim();
     const state = document.getElementById("state").value.trim();
     const zip = document.getElementById("zip").value.trim();
@@ -32,7 +32,7 @@ document.getElementById("confirmButton").addEventListener("click", async functio
     const saveInfo = document.getElementById("saveInfo").checked;
 
     // Basic validation
-    if (!name || !address || !city || !state || !zip ||
+    if (!address || !address2 || !city || !state || !zip ||
         !cardName || !cardNumber || !expDate || !cvv) {
         alert("⚠️ Please fill out all required fields before confirming your purchase.");
         return;
@@ -97,14 +97,14 @@ document.getElementById("confirmButton").addEventListener("click", async functio
     }
 
     // If validation passes
-    let message = `✅ Purchase confirmed!\n\nThank you, ${name}!\nYour vehicle will be ${deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
-        }.\n\n`;
+    let message = `✅ Purchase confirmed!\n\nThank you, ${cardName}!\nYour vehicle will be ${deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
+        }.`;
 
     if (saveInfo) {
-        message += "💾 Your information has been saved for future purchases.";
+        message += "\n\n💾 Your information has been saved for future purchases.";
         // Example localStorage save (for demo)
         localStorage.setItem("savedUserInfo", JSON.stringify({
-            name, address, city, state, zip, cardName
+            cardName, address, city, state, zip, cardName
         }));
     }
 
@@ -122,7 +122,7 @@ document.getElementById("confirmButton").addEventListener("click", async functio
     const purchaseData = {
         vehicleID: parseInt(vehicleID),
         emailPurchase: emailPurchase,
-        customer: name,
+        customer: cardName,
         vehicleName: make + " " + model,
         vehiclePrice: price,
         deliveryCode: generatedCode,
