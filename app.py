@@ -281,7 +281,27 @@ def get_order_data():
 
     return jsonify(data)
 
-#SELECT * FROM users WHERE username = 'john_doe';
+#code for getting user data on the update user page
+@app.route('/get-user-data', methods=['GET', 'POST'])
+def get_user_data():
+    if request.method == 'POST':
+        #get the username target
+        username = request.form['username']
+    
+        #find that user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM users WHERE username = %$",  (username,))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
