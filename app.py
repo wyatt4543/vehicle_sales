@@ -139,7 +139,7 @@ def update_user():
         #get all of the information for the user update
         first_name = request.form['first-name']
         last_name = request.form['last-name']
-        new_username = request.form['new_username']
+        new_username = request.form['new-username']
         email = request.form['email']
         username = request.form['username']
 
@@ -165,10 +165,10 @@ def update_user():
 # code for updating payment & mail information
 @app.route('/update-payment', methods=['GET', 'POST'])
 def update_payment():
-    if request.method == 'A':
-        #get all of the information for the user update
-        first_name = request.form['first-name']
-        last_name = request.form['last-name']
+    if request.method == 'POST':
+        #get all of the information for the payment and/or mail update
+        name = request.form['name']
+        first_name, last_name = name.split(' ')
         new_username = request.form['new_username']
         email = request.form['email']
         username = request.form['username']
