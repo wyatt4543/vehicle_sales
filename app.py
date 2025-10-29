@@ -102,6 +102,11 @@ def purchase_info():
     else:
         return 'bad data', 400
 
+# load the sales report
+@app.route('/sales-report')
+def sales_report():
+    return render_template('sales-report.html')
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
