@@ -4,7 +4,6 @@ const container = document.getElementById('user-form');
 const userElement = document.getElementById('username');
 
 async function getUser() {
-    console.log({ username: userElement.value.toString() })
     const res = await fetch('/get-user-data', {
         method: 'POST',
         headers: {
