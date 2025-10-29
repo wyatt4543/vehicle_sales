@@ -125,15 +125,16 @@ document.getElementById("confirmButton").addEventListener("click", async functio
         });
     }
 
-    alert(message);
-
     // Make it -1 to signify no pick up in-store
     let generatedCode = -1
 
     // Only generate a random code if the vehicle is being picked up in-store
     if (deliveryOption.value === "in-store") {
         generatedCode = Math.floor(1000 + Math.random() * 9000);
+        message += `\n\nThe pick-up code for your vehicle is: ${generatedCode}`;
     }
+
+    alert(message);
 
     // Data being sent after purchase
     const purchaseData = {
