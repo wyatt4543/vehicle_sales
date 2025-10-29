@@ -2,6 +2,7 @@ let userData = [];
 
 const container = document.getElementById('user-form');
 const userElement = document.getElementById('username');
+const header = document.getElementById('header');
 
 async function getUser() {
     const res = await fetch('/get-user-data', {
@@ -20,6 +21,9 @@ function renderUserInfo() {
     container.removeAttribute("onsubmit")
     container.setAttribute("action", "/update-user");
     container.setAttribute("method", "post");
+
+    // update header
+    header.innerHTML = "Update User Information";
 
     container.innerHTML = `<label for="first-name">First Name</label><br>
         <input type="text" id="first-name" name="first-name" value=${userData[0].first_name}><br><br>
