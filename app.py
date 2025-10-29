@@ -115,12 +115,13 @@ def vehicle_inventory():
         name = request.form['name']
         stock = request.form['stock']
         price = request.form['price']
-         
+        make, model = name.split(' ', 1)
+
         #update the selected vehicle
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
-            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE name = %s", (stock, price, name))
+            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE make = %s AND model = %s", (stock, price, make, model))
             cnx.commit()
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
