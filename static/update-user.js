@@ -18,6 +18,7 @@ async function getUser() {
 
 function renderUserInfo() {
     // change the form for new information submission
+    container.removeAttribute("onsubmit")
     container.setAttribute("action", "/update-user");
     container.setAttribute("method", "post");
 
