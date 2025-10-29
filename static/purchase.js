@@ -71,10 +71,13 @@ document.getElementById("confirmButton").addEventListener("click", function () {
 
     //alert(message);
 
-    console.log(deliveryOption)
+    // Make it -1 to signify no pick up in-store
+    let generatedCode = -1
 
-    const randomNumber = Math.floor(1000 + Math.random() * 9000);
-    console.log(randomNumber);
+    // Only generate a random code if the vehicle is being picked up in-store
+    if (deliveryOption.value === "in-store") {
+        generatedCode = Math.floor(1000 + Math.random() * 9000);
+    }
 
     // Data being sent after purchase
     const purchaseData = {
