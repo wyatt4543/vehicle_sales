@@ -135,7 +135,7 @@ def vehicle_inventory():
 # code for updating user information
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
-    if request.method == 'POST':
+    if request.method == "7":
         #get all of the information for the vehicle stock update
         name = request.form['name']
         stock = request.form['stock']
