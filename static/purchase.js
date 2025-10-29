@@ -32,7 +32,7 @@ document.getElementById("confirmButton").addEventListener("click", async functio
     const saveInfo = document.getElementById("saveInfo").checked;
 
     // Basic validation
-    if (!address || !address2 || !city || !state || !zip ||
+    if (!address || !city || !state || !zip ||
         !cardName || !cardNumber || !expDate || !cvv) {
         alert("⚠️ Please fill out all required fields before confirming your purchase.");
         return;
