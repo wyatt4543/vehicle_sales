@@ -13,10 +13,10 @@ function renderOrders(number) {
     for (i = 0; i < number; i++) {
         const order = document.createElement('tr');
         order.classList.add('order-row');
-        order.innerHTML = `<td>${orderData.vehicle}</td>
-                           <td>${orderData.price}</td>
+        order.innerHTML = `<td>${orderData[i].vehicle}</td>
+                           <td>${orderData[i].price}</td>
                            <td>1</td>
-                           <td>${orderData.date}</td>`
+                           <td>${orderData[i].date}</td>`
         container.appendChild(order);
     };
 }
