@@ -3,204 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vehicle Purchase Page</title>
-  
-<style>
-    
-    /* --- Global Page Layout --- */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1, h2 {
-      color: black;
-    }
-
-    h1 {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: 28px;
-      margin-top: 20px;
-    }
-
-    /* --- Header --- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      border-bottom: 3px solid black;
-      background-color: white;
-    }
-
-    .nav-button {
-      background-color: #9bb0c7;
-      color: black;
-      border: 2px solid black;
-      padding: 10px 25px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .nav-button:hover {
-      background-color: #7a99b8;
-    }
-
-    /* --- Vehicle Section --- */
-    .vehicle-section {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin: 40px 0;
-    }
-
-    .vehicle-info, .vehicle-total {
-      border: 2px solid black;
-      padding: 20px;
-      background-color: #f5f5f5;
-      width: 35%;
-    }
-
-    .vehicle-image {
-      width: 100%;
-      height: 180px;
-      background-color: #ccc;
-      border: 2px solid black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      color: #333;
-      margin-top: 15px;
-    }
-
-    .vehicle-total h2 {
-      font-size: 22px;
-      text-decoration: underline;
-    }
-
-    .total-amount {
-      color: green;
-      font-size: 34px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    /* --- Info Section (Mail + Payment) --- */
-    .info-section {
-      display: flex;
-      justify-content: space-evenly;
-      margin: 40px 0;
-    }
-
-    .info-box {
-      border: 2px solid black;
-      padding: 25px;
-      width: 40%;
-      background-color: #f5f5f5;
-      border-radius: 6px;
-    }
-
-    .info-box h2 {
-      text-align: center;
-      text-decoration: underline;
-      margin-bottom: 20px;
-    }
-
-    .info-box input[type="text"],
-    .info-box input[type="password"],
-    .info-box input[type="month"] {
-      width: 95%;
-      padding: 6px;
-      border: 1px solid gray;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    .info-box label {
-      font-weight: bold;
-    }
-
-    /* --- Delivery Section --- */
-    .delivery-section {
-      border: 2px solid black;
-      width: 80%;
-      margin: 40px auto;
-      padding: 20px;
-      background-color: #f5f5f5;
-      text-align: center;
-      border-radius: 6px;
-    }
-
-    .delivery-section h2 {
-      text-decoration: underline;
-      margin-bottom: 15px;
-    }
-
-    .delivery-section label {
-      font-weight: bold;
-      display: block;
-      margin: 10px 0;
-    }
-
-    /* --- Confirm Purchase --- */
-    .confirm-section {
-      text-align: center;
-      margin: 50px 0;
-    }
-
-    #confirmButton {
-      background-color: #ffeb3b; /* yellow */
-      color: black;
-      font-weight: bold;
-      font-size: 18px;
-      padding: 15px 40px;
-      border: 2px solid black;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 3px 3px 0px black;
-    }
-
-    #confirmButton:hover {
-      background-color: #fdd835;
-      transform: translateY(-2px);
-      transition: 0.2s;
-    }
-
-    .confirm-section label {
-      display: block;
-      margin-top: 12px;
-      font-weight: bold;
-    }
-
-
-  </style>
-
+  <title>Purchase A Vehicle</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='purchase-style.css') }}">
 </head>
-
 
 <body>
 
   <header>
-    <button class="nav-button">HOME</button>
-    <button class="nav-button">USER</button>
+    <button onclick="location.href='/'" class="nav-button">Home</button>
+    <button class="nav-button">User</button>
   </header>
-
-  <h1>Vehicle Purchase Page</h1>
 
     <section class="vehicle-section">
     <div class="vehicle-info">
-      <h2>VEHICLE NAME</h2>
-      <div class="vehicle-image">VEHICLE IMAGE</div>
+      <h2 id="vehicle-name">VEHICLE NAME</h2>
+      <div class="vehicle-image-container"><img src="" id="vehicle-image" alt="VEHICLE IMAGE"></div>
     </div>
 
     <div class="vehicle-total">
       <h2><u>Total</u></h2>
-      <h1 class="total-amount">$$$</h1>
+      <h1 class="total-amount" id="total-amount">$$$</h1>
     </div>
   </section>
 
@@ -271,80 +93,11 @@
 
 
     <section class="confirm-section">
-    <button id="confirmButton">CONFIRM PURCHASE</button><br>
+      <button id="confirmButton">Confirm Purchase</button><br>
     <label>
       <input type="checkbox" id="saveInfo"> Save information for future purchases
     </label>
   </section>
-
-
-    <script>
-    document.getElementById("confirmButton").addEventListener("click", function () {
-      // Gather form elements
-      const name = document.getElementById("name").value.trim();
-      const address = document.getElementById("address").value.trim();
-      const city = document.getElementById("city").value.trim();
-      const state = document.getElementById("state").value.trim();
-      const zip = document.getElementById("zip").value.trim();
-
-      const cardName = document.getElementById("cardName").value.trim();
-      const cardNumber = document.getElementById("cardNumber").value.trim();
-      const expDate = document.getElementById("expDate").value;
-      const cvv = document.getElementById("cvv").value.trim();
-
-      const deliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
-      const saveInfo = document.getElementById("saveInfo").checked;
-
-      // Basic validation
-      if (!name || !address || !city || !state || !zip ||
-          !cardName || !cardNumber || !expDate || !cvv) {
-        alert("⚠️ Please fill out all required fields before confirming your purchase.");
-        return;
-      }
-
-      if (!deliveryOption) {
-        alert("⚠️ Please select a delivery option.");
-        return;
-      }
-
-      // Optional: Basic format check for card number and CVV
-      const cardNumPattern = /^\d{16}$/; // 16 digits
-      const cvvPattern = /^\d{3,4}$/;    // 3 or 4 digits
-
-      if (!cardNumPattern.test(cardNumber)) {
-        alert("⚠️ Invalid card number. Please enter a 16-digit number.");
-        return;
-      }
-
-      if (!cvvPattern.test(cvv)) {
-        alert("⚠️ Invalid CVV. Please enter 3 or 4 digits.");
-        return;
-      }
-
-      // If validation passes
-      let message = `✅ Purchase confirmed!\n\nThank you, ${name}!\nYour vehicle will be ${
-        deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
-      }.\n\n`;
-
-      if (saveInfo) {
-        message += "💾 Your information has been saved for future purchases.";
-        // Example localStorage save (for demo)
-        localStorage.setItem("savedUserInfo", JSON.stringify({
-          name, address, city, state, zip, cardName
-        }));
-      }
-
-      alert(message);
-
-      // Optionally clear forms
-      document.getElementById("mailForm").reset();
-      document.getElementById("paymentForm").reset();
-      document.getElementById("deliveryForm").reset();
-      document.getElementById("saveInfo").checked = false;
-    });
-  </script>
-
-
-
+  <script src="{{ url_for('static', filename='purchase.js') }}"></script>
 </body>
 </html>

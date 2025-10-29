@@ -1,6 +1,8 @@
-from flask import Flask, render_template, jsonify, request, redirect, flash, session
+from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
 import mysql.connector
 import bcrypt
+import smtplib
+from datetime import date
 
 app = Flask(__name__)
 
@@ -24,6 +26,81 @@ def home():
 @app.route('/purchase')
 def purchase():
     return render_template('purchase.html')
+
+# recieve purchase information
+@app.route('/purchase-info', methods=['POST'])
+def purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        emailPurchase = data.get('emailPurchase')
+        customer = data.get('customer')
+        vehicleName = data.get('vehicleName')
+        vehiclePrice = data.get('vehiclePrice')
+        deliveryCode = data.get('deliveryCode')
+        dateToday = date.today()
+        
+        #update vehicle stock in the database and email user if needed
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        #check if the user should be emailed
+        try:
+            if emailPurchase == True:
+                customer_email = ""
+
+                # fetch the user's email
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute("SELECT email FROM users WHERE username = %s", (session['username'],))
+                customer_email = cursor.fetchone()
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+                customer_email = customer_email[0]
+                if customer_email == "":
+                    raise Exception("email not found.")
+
+                #insert the order's details into the databasea
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
+                cnx.commit()
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+
+                #setup the rest of the details for the email
+                email = "vehiclesalesbot@gmail.com"
+
+                text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}\r\nDate: {dateToday}"
+                #check if the user has a pick-up code
+                if deliveryCode != -1:
+                    text += f"\r\n\r\nThe pick-up code is: {deliveryCode}"
+
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.starttls()
+
+                server.login(email, "qewutidqrqlfokjh")
+                
+                server.sendmail(email, customer_email, text)
+
+                app.logger.info("Email has been sent to " + customer_email)
+
+        except Exception as e:
+            app.logger.exception(f"An unexpected error occurred: {e}")
+
+        return 'success', 200
+    else:
+        return 'bad data', 400
 
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
@@ -64,7 +141,7 @@ def sign_in():
         #get all of the information for logging into an account
         username = request.form['username']
         password = request.form['password']
-        result = ()
+        result = ""
 
         #retrieve the user from the database
         try:

@@ -1,0 +1,109 @@
+﻿let make = localStorage.getItem('make');
+let model = localStorage.getItem('model');
+let price = localStorage.getItem('price');
+let vehicleID = localStorage.getItem('vehicleID');
+
+let vehicleName = document.getElementById('vehicle-name');
+vehicleName.innerHTML = `${make} ${model}`;
+
+let vehicleImage = document.getElementById('vehicle-image');
+vehicleImage.src = `/static/Vehicle Images/IMG${vehicleID}.png`;
+vehicleImage.alt = `${make} ${model}`;
+
+let vehiclePrice = document.getElementById('total-amount');
+vehiclePrice.innerHTML = `$${price}`;
+
+document.getElementById("confirmButton").addEventListener("click", function () {
+    // Gather form elements
+    const name = document.getElementById("name").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const city = document.getElementById("city").value.trim();
+    const state = document.getElementById("state").value.trim();
+    const zip = document.getElementById("zip").value.trim();
+
+    const cardName = document.getElementById("cardName").value.trim();
+    const cardNumber = document.getElementById("cardNumber").value.trim();
+    const expDate = document.getElementById("expDate").value;
+    const cvv = document.getElementById("cvv").value.trim();
+
+    const emailPurchase = document.getElementById("emailPurchaseInfo").checked;
+
+    const deliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
+    const saveInfo = document.getElementById("saveInfo").checked;
+
+    //// Basic validation
+    //if (!name || !address || !city || !state || !zip ||
+    //    !cardName || !cardNumber || !expDate || !cvv) {
+    //    alert("⚠️ Please fill out all required fields before confirming your purchase.");
+    //    return;
+    //}
+
+    //if (!deliveryOption) {
+    //    alert("⚠️ Please select a delivery option.");
+    //    return;
+    //}
+
+    //// Basic format check for card number and CVV
+    //const cardNumPattern = /^\d{16}$/; // 16 digits
+    //const cvvPattern = /^\d{3,4}$/;    // 3 or 4 digits
+
+    //if (!cardNumPattern.test(cardNumber)) {
+    //    alert("⚠️ Invalid card number. Please enter a 16-digit number.");
+    //    return;
+    //}
+
+    //if (!cvvPattern.test(cvv)) {
+    //    alert("⚠️ Invalid CVV. Please enter 3 or 4 digits.");
+    //    return;
+    //}
+
+    //// If validation passes
+    //let message = `✅ Purchase confirmed!\n\nThank you, ${name}!\nYour vehicle will be ${deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
+    //    }.\n\n`;
+
+    //if (saveInfo) {
+    //    message += "💾 Your information has been saved for future purchases.";
+    //    // Example localStorage save (for demo)
+    //    localStorage.setItem("savedUserInfo", JSON.stringify({
+    //        name, address, city, state, zip, cardName
+    //    }));
+    //}
+
+    //alert(message);
+
+    // Make it -1 to signify no pick up in-store
+    let generatedCode = -1
+
+    // Only generate a random code if the vehicle is being picked up in-store
+    if (deliveryOption.value === "in-store") {
+        generatedCode = Math.floor(1000 + Math.random() * 9000);
+    }
+
+    // Data being sent after purchase
+    const purchaseData = {
+        vehicleID: parseInt(vehicleID),
+        emailPurchase: emailPurchase,
+        customer: name,
+        vehicleName: make + " " + model,
+        vehiclePrice: price,
+        deliveryCode: generatedCode,
+    };
+
+    // Send the data
+    fetch('/purchase-info', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Important for JSON data
+        },
+        body: JSON.stringify(purchaseData) // Convert JavaScript object to JSON string
+    })
+    .then(response => {
+        // Check if the server responded successfully (status 200-299)
+        if (!response.ok) {
+            // Throw an error if the server returned a 4xx or 5xx status
+            throw new Error('Server error: ' + response.statusText);
+        }
+
+        window.location.href = '/'; // Redirect to your desired success page
+    })
+});
