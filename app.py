@@ -108,7 +108,7 @@ def sales_report():
     return render_template('sales-report.html')
 
 # code for updating the vehicle inventory
-@app.route('/vehicle-inventory')
+@app.route('/vehicle-inventory', methods=['GET', 'POST'])
 def vehicle_inventory():
     if request.method == 'POST':
         #get all of the information for the vehicle stock update
