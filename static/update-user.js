@@ -4,12 +4,13 @@ const container = document.getElementById('user-form');
 const userElement = document.getElementById('username');
 
 async function getUser() {
+    console.log({ username: userElement.value.toString() })
     const res = await fetch('/get-user-data', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userElement.value)
+        body: JSON.stringify({ username: userElement.value })
     });
     userData = await res.json();
     renderUserInfo();
@@ -17,8 +18,8 @@ async function getUser() {
 
 function renderUserInfo() {
     // change the form for new information submission
-    myForm.setAttribute("action", "/update-user");
-    myForm.setAttribute("method", "post");
+    container.setAttribute("action", "/update-user");
+    container.setAttribute("method", "post");
 
     container.innerHTML = `<label for="first-name">First Name</label><br>
         <input type="text" id="first-name" name="first-name" value=${userData[0].first_name}><br><br>

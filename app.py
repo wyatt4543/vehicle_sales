@@ -284,15 +284,16 @@ def get_order_data():
 #code for getting user data on the update user page
 @app.route('/get-user-data', methods=['GET', 'POST'])
 def get_user_data():
-    if request.method == 'POST':
+    if request.is_json:
         #get the username target
-        username = request.form['username']
+        data = request.get_json()
+        username = data.get('username')
     
         #find that user's information
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM users WHERE username = %$",  (username,))
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (username,))
             data = cursor.fetchall()
         except mysql.connector.Error as err:
             data = {"error": str(err)}
