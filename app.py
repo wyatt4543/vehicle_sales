@@ -57,13 +57,13 @@ def purchase_info():
                 cnx.close()
 
         #insert the order's details into the database
-        #cnx = mysql.connector.connect(**config)
-        #cursor = cnx.cursor()
-        #cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
-        #cnx.commit()
-        #if 'cnx' in locals() and cnx.is_connected():
-            #cursor.close()
-            #cnx.close()
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
+        cnx.commit()
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
 
         #check if the user should be emailed
         try:
