@@ -211,6 +211,23 @@ def get_data():
 
     return jsonify(data)
 
+#code for loading orders on the sales report page
+@app.route('/get-order-data')
+def get_data():
+    try:
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM orders;")
+        data = cursor.fetchall()
+    except mysql.connector.Error as err:
+        data = {"error": str(err)}
+    finally:
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
+    return jsonify(data)
+
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
