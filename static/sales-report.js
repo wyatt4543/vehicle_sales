@@ -9,7 +9,7 @@ window.addEventListener('load', async () => {
 });
 
 function renderOrders(number) {
-    container.innerHTML = ''; // Clear existing orders
+    container.innerHTML = '<tr><th>Vehicle</th><th>Price</th><th>Quantity</th><th>Date</th></tr>'; // Clear existing orders
     for (i = 0; i < number; i++) {
         const order = document.createElement('tr');
         order.classList.add('order-row');
