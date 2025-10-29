@@ -131,6 +131,36 @@ def vehicle_inventory():
                 cnx.close()
     return render_template('vehicle-inventory.html')
 
+
+# code for updating user information
+@app.route('/update-user', methods=['GET', 'POST'])
+def update_user():
+    if request.method == 'POST':
+        #get all of the information for the user update
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        new_username = request.form['new_username']
+        email = request.form['email']
+        username = request.form['username']
+
+        #update the selected user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE users SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s;", (first_name, last_name, new_username, email, username))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    # check if the user is an admin
+    if session['username'] == "Admin":
+        return render_template('update-user.html')
+    else:
+        return "no permission"
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
@@ -251,6 +281,29 @@ def get_order_data():
             cnx.close()
 
     return jsonify(data)
+
+#code for getting user data on the update user page
+@app.route('/get-user-data', methods=['GET', 'POST'])
+def get_user_data():
+    if request.is_json:
+        #get the username target
+        data = request.get_json()
+        username = data.get('username')
+    
+        #find that user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (username,))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'

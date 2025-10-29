@@ -16,7 +16,7 @@ function renderOrders(number) {
         order.innerHTML = `<td>${orderData[i].vehicle}</td>
                            <td>${orderData[i].price}</td>
                            <td>1</td>
-                           <td>${orderData[i].date}</td>`
+                           <td>${orderData[i].date}</td>`;
         container.appendChild(order);
     };
 }
