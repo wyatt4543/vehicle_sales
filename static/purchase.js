@@ -73,6 +73,9 @@ document.getElementById("confirmButton").addEventListener("click", function () {
 
     console.log(deliveryOption)
 
+    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+    console.log(randomNumber);
+
     // Data being sent after purchase
     const purchaseData = {
         vehicleID: parseInt(vehicleID),
