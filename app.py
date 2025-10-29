@@ -107,6 +107,29 @@ def purchase_info():
 def sales_report():
     return render_template('sales-report.html')
 
+# code for updating the vehicle inventory
+@app.route('/vehicle-inventory')
+def vehicle_inventory():
+    if request.method == 'POST':
+        #get all of the information for the vehicle stock update
+        name = request.form['name']
+        stock = request.form['stock']
+        price = request.form['price']
+         
+        #update the selected vehicle
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE name = %s", (stock, price, name))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    return render_template('vehicle-inventory.html')
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
