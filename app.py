@@ -139,7 +139,7 @@ def update_user():
         #get all of the information for the user update
         first_name = request.form['first-name']
         last_name = request.form['last-name']
-        new_username = request.form['new_username']
+        new_username = request.form['new-username']
         email = request.form['email']
         username = request.form['username']
 
@@ -160,6 +160,58 @@ def update_user():
         return render_template('update-user.html')
     else:
         return "no permission"
+
+
+# code for updating payment & mail information
+@app.route('/update-payment', methods=['GET', 'POST'])
+def update_payment():
+    if request.method == 'POST':
+        #get all of the information for the payment or mail update
+        form_identifier = request.form['form-identifier']
+        
+        if form_identifier == "mail-form":
+            address = request.form['address']
+            address2 = request.form['address2']
+            city = request.form['city']
+            state = request.form['state']
+            postal_code = request.form['postal_code']
+
+            #update the user's payment information
+            try:
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, session['username']))
+                cnx.commit()
+            except mysql.connector.Error as err:
+                app.logger.info("error:" + str(err))
+            finally:
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+        elif form_identifier == "payment-form":
+            name = request.form['name']
+            first_name, last_name = name.split(' ')
+            card_number = request.form['card_number']
+            expiration = request.form['expiration']
+            security_code = request.form['security_code']
+
+            #update the user's payment information
+            try:
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute("UPDATE users SET first_name = %s, last_name = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (first_name, last_name, card_number, expiration, security_code, session['username']))
+                cnx.commit()
+            except mysql.connector.Error as err:
+                app.logger.info("error:" + str(err))
+            finally:
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('update-payment.html')
+    else:
+        return redirect('sign-in')
 
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
@@ -295,6 +347,21 @@ def get_user_data():
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor(dictionary=True)
             cursor.execute("SELECT * FROM users WHERE username = %s",  (username,))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
+    else:
+        #get the logged in user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (session['username'],))
             data = cursor.fetchall()
         except mysql.connector.Error as err:
             data = {"error": str(err)}

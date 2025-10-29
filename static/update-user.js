@@ -31,8 +31,8 @@ function renderUserInfo() {
         <label for="last-name">Last Name</label><br>
         <input type="text" id="last-name" name="last-name" value=${userData[0].last_name}><br><br>
 
-        <label for="new_username">Username</label><br>
-        <input type="text" id="new_username" name="new_username" value=${userData[0].username}><br><br>
+        <label for="new-username">Username</label><br>
+        <input type="text" id="new-username" name="new-username" value=${userData[0].username}><br><br>
 
         <label for="email">Email</label><br>
         <input type="email" id="email" name="email" value=${userData[0].email}><br><br>
