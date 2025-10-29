@@ -135,18 +135,18 @@ def vehicle_inventory():
 # code for updating user information
 @app.route('/update-user', methods=['GET', 'POST'])
 def update_user():
-    if request.method == "7":
-        #get all of the information for the vehicle stock update
-        name = request.form['name']
-        stock = request.form['stock']
-        price = request.form['price']
-        make, model = name.split(' ', 1)
+    if request.method == 'POST':
+        #get all of the information for the user update
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        new_username = request.form['new_username']
+        email = request.form['email']
 
-        #update the selected vehicle
+        #update the selected user's information
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor()
-            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE make = %s AND model = %s", (stock, price, make, model))
+            cursor.execute("UPDATE vehicles SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s", (first_name, last_name, new_username, email, username))
             cnx.commit()
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
