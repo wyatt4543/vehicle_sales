@@ -13,7 +13,7 @@ vehicleImage.alt = `${make} ${model}`;
 let vehiclePrice = document.getElementById('total-amount');
 vehiclePrice.innerHTML = `$${price}`;
 
-document.getElementById("confirmButton").addEventListener("click", function () {
+document.getElementById("confirmButton").addEventListener("click", async function () {
     // Gather form elements
     const name = document.getElementById("name").value.trim();
     const address = document.getElementById("address").value.trim();
@@ -58,6 +58,10 @@ document.getElementById("confirmButton").addEventListener("click", function () {
     }
 
     // Check if the user's name matches with the information in the database
+    const res = await fetch('/get-user-data');
+    userData = await res.json();
+    storedName = `${userData[0].first_name} ${userData[0].last_name}`
+
     if (cardName != storedName) {
         alert("⚠️ Invalid name. Please your real name.");
         return;
