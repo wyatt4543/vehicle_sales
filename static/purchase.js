@@ -123,7 +123,7 @@ document.getElementById("confirmButton").addEventListener("click", async functio
                 'Content-Type': 'application/json' // Important for JSON data
             },
             body: JSON.stringify(purchaseInfo) // Convert JavaScript object to JSON string
-        })
+        });
     }
 
     alert(message);
@@ -162,5 +162,5 @@ document.getElementById("confirmButton").addEventListener("click", async functio
         }
 
         window.location.href = '/'; // Redirect to your desired success page
-    })
+    });
 });
