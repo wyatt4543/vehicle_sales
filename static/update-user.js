@@ -14,14 +14,17 @@ function renderUserInfo() {
     myForm.setAttribute("action", "/update-user");
     myForm.setAttribute("method", "post");
 
-    container.innerHTML = `<label for="username">Username</label><br>
+    container.innerHTML = `<label for="first-name">First Name</label><br>
+        <input type="text" id="first-name" name="first-name"><br><br>
+
+        <label for="last-name">Last Name</label><br>
+        <input type="text" id="last-name" name="last-name"><br><br>
+
+        <label for="username">Username</label><br>
         <input type="text" id="username" name="username"><br><br>
 
-        <label for="stock">Stock</label><br>
-        <input type="text" id="stock" name="stock"><br><br>
-
-        <label for="price">Price</label><br>
-        <input type="text" id="price" name="price"><br><br>
+        <label for="email">Email</label><br>
+        <input type="email" id="email" name="email"><br><br>
 
         <input type="submit" value="Update">`;
 }
