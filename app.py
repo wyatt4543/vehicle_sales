@@ -69,7 +69,7 @@ def purchase_info():
                 if customer_email == "":
                     raise Exception("email not found.")
 
-                #insert the order's details into the databasea
+                #insert the order's details into the database
                 cnx = mysql.connector.connect(**config)
                 cursor = cnx.cursor()
                 cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
@@ -101,6 +101,11 @@ def purchase_info():
         return 'success', 200
     else:
         return 'bad data', 400
+
+# load the sales report
+@app.route('/sales-report')
+def sales_report():
+    return render_template('sales-report.html')
 
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
@@ -196,6 +201,23 @@ def get_data():
         cnx = mysql.connector.connect(**config)
         cursor = cnx.cursor(dictionary=True)
         cursor.execute("SELECT * FROM vehicles;")
+        data = cursor.fetchall()
+    except mysql.connector.Error as err:
+        data = {"error": str(err)}
+    finally:
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
+    return jsonify(data)
+
+#code for loading orders on the sales report page
+@app.route('/get-order-data')
+def get_order_data():
+    try:
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM orders;")
         data = cursor.fetchall()
     except mysql.connector.Error as err:
         data = {"error": str(err)}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Report</title>
+</head>
+<body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+    </nav>
+    <h1>Summary of vehicle Sales:</h1>
+    <table class="orders-style" id="orders-container">
+        <!-- automatically fill this with orders from the database -->
+    </table>
+    <script src="{{ url_for('static', filename='sales-report.js') }}"></script>
+</body>
+</html>
