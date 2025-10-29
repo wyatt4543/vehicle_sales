@@ -1,6 +1,6 @@
 let orderData = [];
 
-const container = document.getElementById('catalog-container');
+const container = document.getElementById('orders-container');
 
 window.addEventListener('load', async () => {
     const res = await fetch('/get-order-data');
