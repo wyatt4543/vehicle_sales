@@ -25,7 +25,11 @@ def home():
 # Serve the various different pages
 @app.route('/purchase')
 def purchase():
-    return render_template('purchase.html')
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('purchase.html')
+    else:
+        return redirect('sign-in')
 
 # recieve purchase information
 @app.route('/purchase-info', methods=['POST'])
@@ -52,6 +56,15 @@ def purchase_info():
                 cursor.close()
                 cnx.close()
 
+        #insert the order's details into the database
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor()
+        cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
+        cnx.commit()
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
         #check if the user should be emailed
         try:
             if emailPurchase == True:
@@ -68,15 +81,6 @@ def purchase_info():
                 customer_email = customer_email[0]
                 if customer_email == "":
                     raise Exception("email not found.")
-
-                #insert the order's details into the database
-                cnx = mysql.connector.connect(**config)
-                cursor = cnx.cursor()
-                cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
-                cnx.commit()
-                if 'cnx' in locals() and cnx.is_connected():
-                    cursor.close()
-                    cnx.close()
 
                 #setup the rest of the details for the email
                 email = "vehiclesalesbot@gmail.com"
@@ -97,6 +101,37 @@ def purchase_info():
 
         except Exception as e:
             app.logger.exception(f"An unexpected error occurred: {e}")
+
+        return 'success', 200
+    else:
+        return 'bad data', 400
+
+# recieve purchase information
+@app.route('/save-purchase-info', methods=['POST'])
+def save_purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        address = data.get('address')
+        address2 = data.get('address2')
+        city = data.get('city')
+        state = data.get('state')
+        postal_code = data.get('zip')
+        cardNumber = data.get('cardNumber')
+        expDate = data.get('expDate')
+        security_code = data.get('cvv')
+        
+        #update the user's stored purchase information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, cardNumber, expDate, security_code, session['username']))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
 
         return 'success', 200
     else:
