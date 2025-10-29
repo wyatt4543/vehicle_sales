@@ -169,7 +169,7 @@ def update_payment():
         #get all of the information for the payment or mail update
         form_identifier = request.form['form-identifier']
         
-        if form_indentifier == "mail-form":
+        if form_identifier == "mail-form":
             address = request.form['address']
             address2 = request.form['address2']
             city = request.form['city']
@@ -188,7 +188,7 @@ def update_payment():
                 if 'cnx' in locals() and cnx.is_connected():
                     cursor.close()
                     cnx.close()
-        elif form_indentifier == "payment-form":
+        elif form_identifier == "payment-form":
             name = request.form['name']
             first_name, last_name = name.split(' ')
             card_number = request.form['card_number']
