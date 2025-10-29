@@ -106,6 +106,37 @@ def purchase_info():
     else:
         return 'bad data', 400
 
+# recieve purchase information
+@app.route('/purchase-info', methods=['POST'])
+def purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        address = data.get('address')
+        address2 = data.get('address2')
+        city = data.get('city')
+        state = data.get('state')
+        postal_code = data.get('zip')
+        cardNumber = data.get('cardNumber')
+        expDate = data.get('expDate')
+        security_code = data.get('cvv')
+        
+        #update the user's stored purchase information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, cardNumber, expDate, security_code, session['username']))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return 'success', 200
+    else:
+        return 'bad data', 400
+
 # load the sales report
 @app.route('/sales-report')
 def sales_report():
