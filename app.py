@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request, redirect, flash, ses
 import mysql.connector
 import bcrypt
 import smtplib
+from datetime import date
 
 app = Flask(__name__)
 
@@ -36,6 +37,7 @@ def purchase_info():
         vehicleName = data.get('vehicleName')
         vehiclePrice = data.get('vehiclePrice')
         deliveryCode = data.get('deliveryCode')
+        dateToday = date.today()
         
         #update vehicle stock in the database and email user if needed
         try:
@@ -70,7 +72,7 @@ def purchase_info():
                 #setup the rest of the details for the email
                 email = "vehiclesalesbot@gmail.com"
 
-                text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}"
+                text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}\r\nDate: {dateToday}"
                 #check if the user has a pick-up code
                 if deliveryCode != -1:
                     text += f"\r\n\r\nThe pick-up code is: {deliveryCode}"
