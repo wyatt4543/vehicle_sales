@@ -32,6 +32,9 @@ def purchase_info():
     if request.is_json:
         data = request.get_json()
         emailPurchase = data.get('emailPurchase')
+        customer = data.get('customer')
+        vehicleName = data.get('vehicleName')
+        vehiclePrice = data.get('vehiclePrice')
         
         #update vehicle stock in the database and email user if needed
         try:
@@ -49,19 +52,32 @@ def purchase_info():
         #check if the user should be emailed
         try:
             if emailPurchase == True:
-                email = "vehiclesalesbot@gmail.com"
-                reciever_email = "w4543w@gmail.com"
+                customer_email = ""
 
-                text = "Subject: Reciept Details\n\nThe car costed $1,000"
+                # fetch the user's email
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor()
+                cursor.execute("SELECT email FROM users WHERE username = %s", (session['username'],))
+                customer_email = cursor.fetchone()
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+                if customer_email == "":
+                    raise Exception("email not found.")
+
+                #setup the rest of the details for the email
+                email = "vehiclesalesbot@gmail.com"
+
+                text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}"
                 
                 server = smtplib.SMTP("smtp.gmail.com", 587)
                 server.starttls()
 
                 server.login(email, "qewutidqrqlfokjh")
                 
-                server.sendmail(email, reciever_email, text)
+                server.sendmail(email, customer_email, text)
 
-                app.logger.info("Email has been sent to " + reciever_email)
+                app.logger.info("Email has been sent to " + customer_email)
 
         except Exception as e:
             app.logger.exception(f"An unexpected error occurred: {e}")
