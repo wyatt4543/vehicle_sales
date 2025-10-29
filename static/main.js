@@ -5,8 +5,6 @@ const container = document.getElementById('catalog-container');
 window.addEventListener('load', async () => {
     const res = await fetch('/get-data');
     vehicleData = await res.json();
-    console.log(vehicleData);
-    console.log(vehicleData[1]);
     renderProducts(vehicleData.length);
 });
 
