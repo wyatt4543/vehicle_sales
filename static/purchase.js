@@ -71,6 +71,8 @@ document.getElementById("confirmButton").addEventListener("click", function () {
 
     //alert(message);
 
+    console.log(deliveryOption)
+
     // Data being sent after purchase
     const purchaseData = {
         vehicleID: parseInt(vehicleID),
@@ -78,6 +80,7 @@ document.getElementById("confirmButton").addEventListener("click", function () {
         customer: name,
         vehicleName: make + " " + model,
         vehiclePrice: price,
+        deliveryCode: generatedCode,
     };
 
     // Send the data
