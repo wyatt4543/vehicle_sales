@@ -31,45 +31,51 @@ document.getElementById("confirmButton").addEventListener("click", function () {
     const deliveryOption = document.querySelector('input[name="deliveryOption"]:checked');
     const saveInfo = document.getElementById("saveInfo").checked;
 
-    //// Basic validation
-    //if (!name || !address || !city || !state || !zip ||
-    //    !cardName || !cardNumber || !expDate || !cvv) {
-    //    alert("⚠️ Please fill out all required fields before confirming your purchase.");
-    //    return;
-    //}
+    // Basic validation
+    if (!name || !address || !city || !state || !zip ||
+        !cardName || !cardNumber || !expDate || !cvv) {
+        alert("⚠️ Please fill out all required fields before confirming your purchase.");
+        return;
+    }
 
-    //if (!deliveryOption) {
-    //    alert("⚠️ Please select a delivery option.");
-    //    return;
-    //}
+    if (!deliveryOption) {
+        alert("⚠️ Please select a delivery option.");
+        return;
+    }
 
-    //// Basic format check for card number and CVV
-    //const cardNumPattern = /^\d{16}$/; // 16 digits
-    //const cvvPattern = /^\d{3,4}$/;    // 3 or 4 digits
+    // Basic format check for card number and CVV
+    const cardNumPattern = /^\d{16}$/; // 16 digits
+    const cvvPattern = /^\d{3,4}$/;    // 3 or 4 digits
 
-    //if (!cardNumPattern.test(cardNumber)) {
-    //    alert("⚠️ Invalid card number. Please enter a 16-digit number.");
-    //    return;
-    //}
+    if (!cardNumPattern.test(cardNumber)) {
+        alert("⚠️ Invalid card number. Please enter a 16-digit number.");
+        return;
+    }
 
-    //if (!cvvPattern.test(cvv)) {
-    //    alert("⚠️ Invalid CVV. Please enter 3 or 4 digits.");
-    //    return;
-    //}
+    if (!cvvPattern.test(cvv)) {
+        alert("⚠️ Invalid CVV. Please enter 3 or 4 digits.");
+        return;
+    }
 
-    //// If validation passes
-    //let message = `✅ Purchase confirmed!\n\nThank you, ${name}!\nYour vehicle will be ${deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
-    //    }.\n\n`;
+    // Check if the user's name matches with the information in the database
+    if (cardName != storedName) {
+        alert("⚠️ Invalid name. Please your real name.");
+        return;
+    }
 
-    //if (saveInfo) {
-    //    message += "💾 Your information has been saved for future purchases.";
-    //    // Example localStorage save (for demo)
-    //    localStorage.setItem("savedUserInfo", JSON.stringify({
-    //        name, address, city, state, zip, cardName
-    //    }));
-    //}
+    // If validation passes
+    let message = `✅ Purchase confirmed!\n\nThank you, ${name}!\nYour vehicle will be ${deliveryOption.value === "in-store" ? "ready for pickup in-store" : "delivered to your address"
+        }.\n\n`;
 
-    //alert(message);
+    if (saveInfo) {
+        message += "💾 Your information has been saved for future purchases.";
+        // Example localStorage save (for demo)
+        localStorage.setItem("savedUserInfo", JSON.stringify({
+            name, address, city, state, zip, cardName
+        }));
+    }
+
+    alert(message);
 
     // Make it -1 to signify no pick up in-store
     let generatedCode = -1
