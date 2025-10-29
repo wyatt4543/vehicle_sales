@@ -57,7 +57,7 @@ def purchase_info():
                 server = smtplib.SMTP("smtp.gmail.com", 587)
                 server.starttls()
 
-                server.login(email, "1tarl4TARL!#")
+                server.login(email, "qewutidqrqlfokjh")
                 
                 server.sendmail(email, reciever_email, text)
 
