@@ -1,19 +1,20 @@
-let orderData = [];
+let userData = [];
 
-const container = document.getElementById('orders-container');
+const container = document.getElementById('user-form');
 
-window.addEventListener('load', async () => {
-    const res = await fetch('/get-order-data');
-    orderData = await res.json();
-    renderOrders(orderData.length);
-});
+async function getUser() {
+    const res = await fetch('/get-user-data');
+    userData = await res.json();
+    renderUserInfo();
+};
 
-function renderOrders(number) {
-    container.innerHTML = '<tr><th>Vehicle</th><th>Price</th><th>Quantity</th><th>Date</th></tr>'; // Clear existing orders
-    for (i = 0; i < number; i++) {
-        const order = document.createElement('tr');
-        order.classList.add('order-row');
-        order.innerHTML = `<label for="username">Username</label><br>
+function renderUserInfo() {
+    // change the form for new information submission
+    myForm.removeAttribute("onsubmit");
+    myForm.setAttribute("action", "/update-user");
+    myForm.setAttribute("method", "post");
+
+    container.innerHTML = `<label for="username">Username</label><br>
         <input type="text" id="username" name="username"><br><br>
 
         <label for="stock">Stock</label><br>
@@ -22,8 +23,6 @@ function renderOrders(number) {
         <label for="price">Price</label><br>
         <input type="text" id="price" name="price"><br><br>
 
-        <input type="submit" value="Update">`
-        container.appendChild(order);
-    };
+        <input type="submit" value="Update">`;
 }
 
