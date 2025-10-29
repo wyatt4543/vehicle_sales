@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update User Information</title>
+</head>
+<body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+    </nav>
+    <h1>Enter User</h1>
+    <form action="/update-user" method="post">
+        <label for="username">Username</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    <script src="{{ url_for('static', filename='update-user.js') }}"></script>
+</body>
+</html>
