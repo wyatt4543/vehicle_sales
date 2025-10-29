@@ -161,6 +161,36 @@ def update_user():
     else:
         return "no permission"
 
+
+# code for updating payment & mail information
+@app.route('/update-payment', methods=['GET', 'POST'])
+def update_payment():
+    if request.method == 'A':
+        #get all of the information for the user update
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        new_username = request.form['new_username']
+        email = request.form['email']
+        username = request.form['username']
+
+        #update the selected user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor()
+            cursor.execute("UPDATE users SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s;", (first_name, last_name, new_username, email, username))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('update-payment.html')
+    else:
+        return redirect('sign-in')
+
 # code for creating an account
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
