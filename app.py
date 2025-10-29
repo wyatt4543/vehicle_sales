@@ -213,7 +213,7 @@ def get_data():
 
 #code for loading orders on the sales report page
 @app.route('/get-order-data')
-def get_data():
+def get_order_data():
     try:
         cnx = mysql.connector.connect(**config)
         cursor = cnx.cursor(dictionary=True)
