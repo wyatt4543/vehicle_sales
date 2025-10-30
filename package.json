@@ -6,6 +6,9 @@
   "scripts": {
     "test": "jest"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wyatt4543/vehicle_sales.git"
@@ -20,6 +23,7 @@
   "homepage": "https://github.com/wyatt4543/vehicle_sales#readme",
   "devDependencies": {
     "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^27.0.1"
   }
 }
