@@ -1,4 +1,4 @@
-﻿// purchase-test.js
+﻿// purchase.test.js
 const { JSDOM } = require('jsdom');
 const path = require('path');
 const fs = require('fs');

@@ -1,0 +1,21 @@
+{
+  "name": "vehicle_sales",
+  "version": "1.0.0",
+  "description": "This is a repository containing the code for a Web-based Application for Vehicle Sales, Purchase and Inventory Management",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyatt4543/vehicle_sales.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wyatt4543/vehicle_sales/issues"
+  },
+  "homepage": "https://github.com/wyatt4543/vehicle_sales#readme"
+}
