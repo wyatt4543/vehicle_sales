@@ -4,8 +4,8 @@ const path = require('path');
 const fs = require('fs');
 
 // Path to your HTML and JS files
-const htmlPath = path.join(__dirname, 'purchase.html');
-const jsPath = path.join(__dirname, 'purchase.js');
+const htmlPath = path.join(__dirname, '..', 'templates', 'purchase.html');
+const jsPath = path.join(__dirname, '..', 'static', 'purchase.js');
 
 let dom;
 let document;
