@@ -1,6 +1,3 @@
-# vehicle_sales
-This is a repository containing the code for a Web-based Application for Vehicle Sales, Purchase and Inventory Management
-
 to run the code install python at: https://www.python.org/
 
 then in the cmd prompt run:
