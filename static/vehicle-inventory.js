@@ -1,6 +1,7 @@
 let vehicleData = [];
 
 const vehicleContainer = document.getElementById('vehicle-form');
+const selectElement = document.getElementById('vehicle-select'); 
 
 window.addEventListener('load', async () => {
     const res = await fetch('/get-data');
@@ -29,7 +30,7 @@ function renderVehicleInventory() {
 }
 
 // Function to update the stock and price fields
-function updateDetails(event) {
+function updateDetails() {
     // Get the selected combined make and model string
     const selectedMakeModel = selectElement.value;
 
