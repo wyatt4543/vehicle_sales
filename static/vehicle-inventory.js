@@ -26,7 +26,6 @@ function renderVehicleInventory() {
 
     // Loop through the Data array and populate the dropdown
     vehicleData.forEach(vehicle => {
-        console.log(vehicle)
         // Create a new <option> element
         const option = document.createElement('option');
 
