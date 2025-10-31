@@ -70,9 +70,11 @@ button {
 
 .dropbtn {}
 
-.dropdown-content {color: black;
-                   padding: 12px 12px;
-                   text-decoration: none;
-                   display: block;
-                   text-align: right;
-                   position: absolute;}
+.dropdown-content {
+    color: black;
+    padding: 12px 12px;
+    text-decoration: none;
+    display: block;
+    text-align: right;
+    position: absolute;
+    right: 0;}
