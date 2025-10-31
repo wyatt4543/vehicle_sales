@@ -26,16 +26,9 @@ function renderProducts(number) {
 }
 
 function applyFilters() {
-    const searchText = searchInput.value.toLowerCase();
     const sortValue = sortBySelect.value;
 
-    // 1. Filter the data based on search input
-    filteredData = vehicleData.filter(vehicle => {
-        const searchString = `${vehicle.make} ${vehicle.model}`;
-        return searchString.toLowerCase().includes(searchText);
-    });
-
-    // 2. Sort the filtered data
+    // Sort the filtered data
     switch (sortValue) {
         case 'price_desc':
             filteredData.sort((a, b) => b.price - a.price);
@@ -55,7 +48,28 @@ function applyFilters() {
             break;
     }
 
-    // 3. Render the newly filtered and sorted data
+    console.log(filteredData)
+    // Render the newly filtered and sorted data
+    renderProducts(filteredData);
+}
+
+function applySearch() {
+    const searchText = (searchInput.value || '').trim().toLowerCase();
+
+    if (searchText === '') {
+        // show full list if no search text
+        renderProducts(vehicleData);
+        return;
+    }
+
+    // Filter the data based on search input
+    filteredData = vehicleData.filter(vehicle => {
+        const searchString = `${vehicle.make} ${vehicle.model}`;
+        return searchString.toLowerCase().includes(searchText);
+    });
+
+    console.log(filteredData)
+    // Render the newly filtered and sorted data
     renderProducts(filteredData);
 }
 
