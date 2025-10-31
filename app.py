@@ -48,7 +48,7 @@ def purchase_info():
         #update vehicle stock in the database and email user if needed
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
             cnx.commit()
         except mysql.connector.Error as err:
@@ -60,7 +60,7 @@ def purchase_info():
 
         #insert the order's details into the database
         cnx = mysql.connector.connect(**config)
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(buffered=True)
         cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
         cnx.commit()
         if 'cnx' in locals() and cnx.is_connected():
@@ -74,7 +74,7 @@ def purchase_info():
 
                 # fetch the user's email
                 cnx = mysql.connector.connect(**config)
-                cursor = cnx.cursor()
+                cursor = cnx.cursor(buffered=True)
                 cursor.execute("SELECT email FROM users WHERE username = %s", (session['username'],))
                 customer_email = cursor.fetchone()
                 if 'cnx' in locals() and cnx.is_connected():
@@ -125,7 +125,7 @@ def save_purchase_info():
         #update the user's stored purchase information
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, cardNumber, expDate, security_code, session['username']))
             cnx.commit()
         except mysql.connector.Error as err:
@@ -157,7 +157,7 @@ def vehicle_inventory():
         #update the selected vehicle
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE make = %s AND model = %s", (stock, price, make, model))
             cnx.commit()
         except mysql.connector.Error as err:
@@ -166,6 +166,7 @@ def vehicle_inventory():
             if 'cnx' in locals() and cnx.is_connected():
                 cursor.close()
                 cnx.close()
+
     return render_template('vehicle-inventory.html')
 
 
@@ -183,7 +184,7 @@ def update_user():
         #update the selected user's information
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("UPDATE users SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s;", (first_name, last_name, new_username, email, username))
             cnx.commit()
         except mysql.connector.Error as err:
@@ -216,7 +217,7 @@ def update_payment():
             #update the user's payment information
             try:
                 cnx = mysql.connector.connect(**config)
-                cursor = cnx.cursor()
+                cursor = cnx.cursor(buffered=True)
                 cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, session['username']))
                 cnx.commit()
             except mysql.connector.Error as err:
@@ -235,7 +236,7 @@ def update_payment():
             #update the user's payment information
             try:
                 cnx = mysql.connector.connect(**config)
-                cursor = cnx.cursor()
+                cursor = cnx.cursor(buffered=True)
                 cursor.execute("UPDATE users SET first_name = %s, last_name = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (first_name, last_name, card_number, expiration, security_code, session['username']))
                 cnx.commit()
             except mysql.connector.Error as err:
@@ -268,7 +269,7 @@ def sign_up():
         #insert the new user into the database
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, username, email, hashed_password))
             cnx.commit()
         except mysql.connector.Error as err:
@@ -294,7 +295,7 @@ def sign_in():
         #retrieve the user from the database
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor()
+            cursor = cnx.cursor(buffered=True)
             cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
             result = cursor.fetchone()
         except mysql.connector.Error as err:
@@ -342,7 +343,7 @@ def forgot_password():
 def get_data():
     try:
         cnx = mysql.connector.connect(**config)
-        cursor = cnx.cursor(dictionary=True)
+        cursor = cnx.cursor(dictionary=True, buffered=True)
         cursor.execute("SELECT * FROM vehicles;")
         data = cursor.fetchall()
     except mysql.connector.Error as err:
@@ -359,7 +360,7 @@ def get_data():
 def get_order_data():
     try:
         cnx = mysql.connector.connect(**config)
-        cursor = cnx.cursor(dictionary=True)
+        cursor = cnx.cursor(dictionary=True, buffered=True)
         cursor.execute("SELECT * FROM orders;")
         data = cursor.fetchall()
     except mysql.connector.Error as err:
@@ -382,7 +383,7 @@ def get_user_data():
         #find that user's information
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor(dictionary=True)
+            cursor = cnx.cursor(dictionary=True, buffered=True)
             cursor.execute("SELECT * FROM users WHERE username = %s",  (username,))
             data = cursor.fetchall()
         except mysql.connector.Error as err:
@@ -397,7 +398,7 @@ def get_user_data():
         #get the logged in user's information
         try:
             cnx = mysql.connector.connect(**config)
-            cursor = cnx.cursor(dictionary=True)
+            cursor = cnx.cursor(dictionary=True, buffered=True)
             cursor.execute("SELECT * FROM users WHERE username = %s",  (session['username'],))
             data = cursor.fetchall()
         except mysql.connector.Error as err:
