@@ -1,0 +1,1 @@
+The only data collection that exists are scripts connected to the purchase web page and 
