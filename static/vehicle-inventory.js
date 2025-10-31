@@ -14,10 +14,10 @@ function renderVehicleInventory() {
         <select id="name" name="name" onchange="updateDetails()"></select><br><br>
 
         <label for="stock">Stock:</label><br>
-        <input type="text" id="stock" name="stock" input=${vehicleData[0].stock}><br><br>
+        <input type="text" id="stock" name="stock"><br><br>
 
         <label for="price">Price:</label><br>
-        <input type="text" id="price" name="price" input=${vehicleData[0].price}><br><br>
+        <input type="text" id="price" name="price"><br><br>
 
         <input type="submit" value="Update">`
 
@@ -38,6 +38,9 @@ function renderVehicleInventory() {
         // Append the option to the select element
         selectElement.appendChild(option);
     });
+
+    // fill in intial vehicle values
+    updateDetails();
 }
 
 // Function to update the stock and price fields
