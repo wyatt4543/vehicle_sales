@@ -11,6 +11,8 @@ window.addEventListener('load', async () => {
 function renderOrders(number) {
     container.innerHTML = '<tr><th>Vehicle</th><th>Price</th><th>Quantity</th><th>Date</th></tr>'; // Clear existing orders
     for (i = 0; i < number; i++) {
+        //remove the hours and minutes from each date
+        orderData[i].date = orderData[i].date.split('00:')[0];
         const order = document.createElement('tr');
         order.classList.add('order-row');
         order.innerHTML = `<td>${orderData[i].vehicle}</td>
