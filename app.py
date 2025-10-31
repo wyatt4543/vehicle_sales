@@ -170,7 +170,10 @@ def vehicle_inventory():
                 cursor.close()
                 cnx.close()
 
-    return render_template('vehicle-inventory.html')
+    if session['username'] == "Admin":
+        return render_template('vehicle-inventory.html')
+    else:
+        return "no permission"
 
 
 # code for updating user information
