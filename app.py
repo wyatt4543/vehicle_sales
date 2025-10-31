@@ -17,6 +17,9 @@ config = {
 
 app.config['SESSION_TYPE'] = 'filesystem'
 
+#only for demo purposes
+config['ssl_disabled'] = True
+
 @app.route('/')
 def home():
     if 'username' in session:
