@@ -1,7 +1,7 @@
 The only data collection that exists are scripts connected to the purchase web page and login pages.
 There are no scripts made specifically for data collection.
 
-to test those scripts you follow the steps in README1.txt to get the website running.
+to test the data collection you follow the steps in README1.txt to get the website running.
 To see the collected data sign in using either of these accounts (capitalization matters):
 username: Admin
 password: 1qart2QART!
