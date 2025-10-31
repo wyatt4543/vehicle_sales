@@ -142,7 +142,10 @@ def save_purchase_info():
 # load the sales report
 @app.route('/sales-report')
 def sales_report():
-    return render_template('sales-report.html')
+    if session['username'] == "Admin":
+        return render_template('sales-report.html')
+    else:
+        return "no permission"
 
 # code for updating the vehicle inventory
 @app.route('/vehicle-inventory', methods=['GET', 'POST'])
