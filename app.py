@@ -262,26 +262,38 @@ def sign_up():
         email = request.form['email']
         password = request.form['password']
 
-        #hash the password and format the password for hashing
-        plain_password_bytes = password.encode('utf-8')
-        hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
-
         #insert the new user into the database
         try:
             cnx = mysql.connector.connect(**config)
             cursor = cnx.cursor(buffered=True)
+
+            # Check if a user with the same username or email already exists
+            cursor.execute("SELECT * FROM users WHERE username = %s OR email = %s", (username, email))
+            existing_user = cursor.fetchone()
+
+            if existing_user:
+                flash('Account with that username or email already exists.', 'error')
+                return redirect('sign_up')
+
+            # If no existing user, proceed with the account creation
+
+            #hash the password and format the password for hashing
+            plain_password_bytes = password.encode('utf-8')
+            hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
+
             cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, username, email, hashed_password))
             cnx.commit()
+            
+            #move the user to the login page on success
+            app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
+            return redirect('sign-in')
+
         except mysql.connector.Error as err:
             app.logger.info("error:" + str(err))
         finally:
             if 'cnx' in locals() and cnx.is_connected():
                 cursor.close()
                 cnx.close()
-
-        #move the user to the login page
-        app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
-        return redirect('sign-in')
     return render_template('sign-up.html')
 
 @app.route('/sign-in', methods=['GET', 'POST'])
