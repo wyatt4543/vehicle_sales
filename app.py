@@ -6,7 +6,6 @@ from datetime import date
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
-app.config['SESSION_TYPE'] = 'filesystem'
 
 config = {
     'host': 'fplg27.h.filess.io',
@@ -15,6 +14,8 @@ config = {
     'port': '61032',
     'database': 'VehicleSales_selection'
 }
+
+app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route('/')
 def home():
