@@ -3,41 +3,48 @@ let vehicleData = [];
 const vehicleContainer = document.getElementById('vehicle-form');
 
 window.addEventListener('load', async () => {
-    const res = await fetch('/get-user-data');
+    const res = await fetch('/get-data');
     vehicleData = await res.json();
     renderVehicleInventory();
 });
 
 function renderVehicleInventory() {
-    // set vehicle form
-    vehicleContainer.innerHTML = `<input type="hidden" name="form-identifier" value="mail-form">
+    // get the vehicle dropdown
+    const selectElement = document.getElementById('vehicle-select');
 
-        <label for="address">Street Address</label><br>
-        <input type="text" id="address" name="address" value=${vehicleData[0].address}><br><br>
+    // Loop through the Data array and populate the dropdown
+    vehicleData.forEach(vehicle => {
+        // Create a new <option> element
+        const option = document.createElement('option');
 
-        <label for="address2">Apt., Suite, Etc.</label><br>
-        <input type="text" id="address2" name="address2" value=${vehicleData[0].address2}><br><br>
+        // Set the text of the option by combining the make and model
+        option.textContent = `${vehicle.make} ${vehicle.model}`;
 
-        <label for="city">City</label><br>
-        <input type="text" id="city" name="city" value=${vehicleData[0].city}><br><br>
+        // Set the value of the option
+        option.value = `${vehicle.make} ${vehicle.model}`;
 
-        <label for="state">State/Province</label><br>
-        <input type="text" id="state" name="state" value=${vehicleData[0].state}><br><br>
-
-        <label for="postal_code">Postal/Zip Code</label><br>
-        <input type="text" id="postal_code" name="postal_code" value=${vehicleData[0].postal_code}><br><br>
-
-        <input type="submit" value="Save Info">`;
-        //temp
-        `<label for="name">Name</label><br>
-        <input type="text" id="name" name="name"><br><br>
-
-        <label for="stock">Stock</label><br>
-        <input type="text" id="stock" name="stock"><br><br>
-
-        <label for="price">Price</label><br>
-        <input type="text" id="price" name="price"><br><br>
-
-        <input type="submit" value="Update">`;
+        // Append the option to the select element
+        selectElement.appendChild(option);
+    });
 }
 
+// Function to update the stock and price fields
+function updateDetails(event) {
+    // Get the selected combined make and model string
+    const selectedMakeModel = selectElement.value;
+
+    // Find the corresponding vehicle object in the data
+    const selectedVehicle = vehicleData.find(vehicle =>
+        `${vehicle.make} ${vehicle.model}` === selectedMakeModel
+    );
+
+    // Get the stock and price input fields
+    const stockInput = document.getElementById('stock');
+    const priceInput = document.getElementById('price');
+
+    if (selectedVehicle) {
+        // Update the input fields with the new data
+        stockInput.value = selectedVehicle.stock;
+        priceInput.value = selectedVehicle.price;
+    }
+}

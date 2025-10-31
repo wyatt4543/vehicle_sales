@@ -11,7 +11,16 @@
     </nav>
     <h1>Enter Vehicle Information</h1>
     <form id="vehicle-form" action="/vehicle-inventory" method="post">
-        <!-- Load Vehicle Info-->
+        <label for="name">Name:</label><br>
+        <select id="name" name="name" onchange="updateDetails(this)"></select><br><br>
+
+        <label for="stock">Stock:</label><br>
+        <input type="text" id="stock" name="stock"><br><br>
+
+        <label for="price">Price:</label><br>
+        <input type="text" id="price" name="price"><br><br>
+
+        <input type="submit" value="Update">
     </form>
     <script src="{{ url_for('static', filename='vehicle-inventory.js') }}"></script>
 </body>
