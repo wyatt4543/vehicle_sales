@@ -1,7 +1,6 @@
 let vehicleData = [];
 
 const vehicleContainer = document.getElementById('vehicle-form');
-const selectElement = document.getElementById('vehicle-select'); 
 
 window.addEventListener('load', async () => {
     const res = await fetch('/get-data');
@@ -10,11 +9,24 @@ window.addEventListener('load', async () => {
 });
 
 function renderVehicleInventory() {
+    // load form after data recieved
+    vehicleContainer.innerHTML = `<label for="name">Name:</label><br>
+        <select id="name" name="name" onchange="updateDetails()"></select><br><br>
+
+        <label for="stock">Stock:</label><br>
+        <input type="text" id="stock" name="stock" input=${vehicleData[0].stock}><br><br>
+
+        <label for="price">Price:</label><br>
+        <input type="text" id="price" name="price" input=${vehicleData[0].price}><br><br>
+
+        <input type="submit" value="Update">`
+
     // get the vehicle dropdown
-    const selectElement = document.getElementById('vehicle-select');
+    const selectElement = document.getElementById('name');
 
     // Loop through the Data array and populate the dropdown
     vehicleData.forEach(vehicle => {
+        console.log(vehicle)
         // Create a new <option> element
         const option = document.createElement('option');
 
@@ -31,6 +43,9 @@ function renderVehicleInventory() {
 
 // Function to update the stock and price fields
 function updateDetails() {
+    // get the vehicle dropdown
+    const selectElement = document.getElementById('name'); 
+
     // Get the selected combined make and model string
     const selectedMakeModel = selectElement.value;
 
