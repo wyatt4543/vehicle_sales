@@ -20,7 +20,7 @@ nav {
 
 body {
     background-color:white;
-    h1 {text-align:center;
+    h1 {text-align: center;
         font-family: arial;}
     form {background-color:#f9f9f9;
           border: 1px solid #acacac;
@@ -40,3 +40,6 @@ body {
         input[type=submit]:hover {background-color: rgb(213, 171, 31);}
         input[type=submit]:active {box-shadow: inset 0px 0px 0.5em black;}}
 }
+
+#forgot-password {text-align: center;
+                  margin-top: 1em;}

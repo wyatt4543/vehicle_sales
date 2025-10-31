@@ -1,3 +1,24 @@
+nav {
+    background-color: hsl(198, 87%, 43%);
+    padding-bottom: 0.75em;
+    button {background-color:white;
+            color: hsl(198, 87%, 43%);
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 0.5em;
+            margin-right: 0.5em;
+            margin-left: 0.5em;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;}
+    button:hover {background-color: hsl(198, 85%, 37%);
+                  color: #eaeaea;}
+    button:active {box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+                   background-color: hsl(198, 86%, 30%);
+                   color: #cbcbcb;}
+}
+
 body {
     font-family: Arial, sans-serif;
 }
@@ -43,3 +64,15 @@ button {
     height: 2.5em;
     background-color: #d8c038;
 }
+
+.dropdown {text-align: right;
+           position: relative;}
+
+.dropbtn {}
+
+.dropdown-content {color: black;
+                   padding: 12px 12px;
+                   text-decoration: none;
+                   display: block;
+                   text-align: right;
+                   position: absolute;}
