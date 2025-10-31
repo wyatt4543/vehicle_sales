@@ -5,6 +5,8 @@ import smtplib
 from datetime import date
 
 app = Flask(__name__)
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 config = {
     'host': 'fplg27.h.filess.io',
@@ -408,6 +410,4 @@ def get_user_data():
         return jsonify(data)
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
-    app.config['SESSION_TYPE'] = 'filesystem'
     app.run(debug=True)
