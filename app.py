@@ -273,7 +273,7 @@ def sign_up():
 
             if existing_user:
                 flash('Account with that username or email already exists.', 'error')
-                return redirect('sign_up')
+                return redirect('sign-up')
 
             # If no existing user, proceed with the account creation
 
