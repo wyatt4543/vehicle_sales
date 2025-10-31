@@ -12,6 +12,15 @@
         <button onclick="location.href='/'" type="button">Home</button>
     </nav>
     <h1>Sign Up</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <form action="/sign-up" method="post" onsubmit="return validatePassword()">
         <label for="first-name">First name</label><br>
         <input type="text" id="first-name" name="first-name"><br><br>
