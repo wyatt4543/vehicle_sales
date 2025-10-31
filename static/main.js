@@ -28,6 +28,8 @@ function renderProducts(number) {
 function applyFilters() {
     const sortValue = sortBySelect.value;
 
+    filteredData = [...vehicleData];
+
     // Sort the filtered data
     switch (sortValue) {
         case 'price_desc':
@@ -43,14 +45,15 @@ function applyFilters() {
             filteredData.sort((a, b) => a.make.localeCompare(b.make));
             break;
         case 'none':
+            filteredData.sort((a, b) => a.vehicleID - b.vehicleID);
+            break;
         default:
-            filteredData = vehicleData;
+            filteredData.sort((a, b) => a.vehicleID - b.vehicleID);
             break;
     }
 
-    console.log(filteredData)
     // Render the newly filtered and sorted data
-    renderProducts(filteredData);
+    renderProducts(filteredData.length);
 }
 
 function applySearch() {
@@ -58,7 +61,9 @@ function applySearch() {
 
     if (searchText === '') {
         // show full list if no search text
-        renderProducts(vehicleData);
+        filteredData = [...vehicleData];
+        filteredData.sort((a, b) => a.vehicleID - b.vehicleID);
+        renderProducts(vehicleData.length);
         return;
     }
 
@@ -68,9 +73,8 @@ function applySearch() {
         return searchString.toLowerCase().includes(searchText);
     });
 
-    console.log(filteredData)
     // Render the newly filtered and sorted data
-    renderProducts(filteredData);
+    renderProducts(filteredData.length);
 }
 
 function transferPurchase(i) {
