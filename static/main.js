@@ -1,11 +1,14 @@
 let vehicleData = [];
-let filteredData = vehicleData; // For storing filtered data
+let filteredData = []; // For storing filtered data
 
 const container = document.getElementById('catalog-container');
+const searchInput = document.getElementById('search-input');
+const sortBySelect = document.getElementById('sort-by');
 
 window.addEventListener('load', async () => {
     const res = await fetch('/get-data');
     vehicleData = await res.json();
+    filteredData = vehicleData;
     renderProducts(filteredData.length);
 });
 
