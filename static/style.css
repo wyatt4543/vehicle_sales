@@ -1,32 +1,41 @@
+/* Nav bar formatting */
 nav {
     background-color: hsl(198, 87%, 43%);
     padding-bottom: 0.75em;
-    button {background-color:white;
-            color: hsl(198, 87%, 43%);
-            font-weight: bold;
-            font-size: 20px;
-            margin-top: 0.5em;
-            margin-right: 0.5em;
-            margin-left: 0.5em;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 5px;
-            padding-bottom: 5px;}
-    button:hover {background-color: hsl(198, 85%, 37%);
-                  color: #eaeaea;}
-    button:active {box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
-                   background-color: hsl(198, 86%, 30%);
-                   color: #cbcbcb;}
+}
+    
+nav > button {
+    background-color:white;
+    color: hsl(198, 87%, 43%);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
-body {
-    font-family: Arial, sans-serif;
+nav > button:hover {
+    background-color: hsl(198, 85%, 37%);
+    color: #eaeaea;
 }
 
+nav > button:active {
+    box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+    background-color: hsl(198, 86%, 30%);
+    color: #cbcbcb;
+}
+
+/* Page title formatting */
 h1 {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
+/* Vehicle cards formatting */
 .catalog-flex {
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap to the next line */
@@ -41,6 +50,7 @@ h1 {
     padding: 20px;
     max-width: 300px;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     /* Make items flexible and ensure a minimum width */
     flex: 1 1 250px;
@@ -74,8 +84,10 @@ h1 {
 }
 
 /* Dropdown formatting */
-.dropdown {text-align: right;
-           position: relative;}
+.dropdown {
+    text-align: right;
+    position: relative;
+}
 
 .dropdown-content {
     color: black;
@@ -84,6 +96,9 @@ h1 {
     display: block;
     text-align: right;
     position: absolute;
-    right: 0;}
+    right: 0;
+}
 
-#filter-controls {text-align: center;}
+#filter-controls {
+    text-align: center;
+}
