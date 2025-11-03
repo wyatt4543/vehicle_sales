@@ -52,8 +52,8 @@ h1 {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    /* Make items flexible and ensure a minimum width */
-    flex: 1 1 250px;
+    flex: 1 1 250px; /* Make items flexible and ensure a minimum width */
+
 }
 
 .catalog-item > img {
