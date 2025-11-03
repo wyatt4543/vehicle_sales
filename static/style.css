@@ -41,17 +41,17 @@ h1 {
     flex-wrap: wrap; /* Allows items to wrap to the next line */
     gap: 20px; /* Adds space between items */
     padding: 20px;
-    justify-content: left; /* Distributes items evenly in a line */
+    justify-content: center; /* Distributes items evenly in a line */
 }
 
 .catalog-item {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 1px solid #acacac;
     padding: 20px;
     max-width: 300px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
     flex: 1 1 250px; /* Make items flexible and ensure a minimum width */
 
 }
