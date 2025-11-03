@@ -33,6 +33,7 @@
         <button onclick="location.href='/sign-in'" type="button">Sign In</button>
         {% endif %}
     </nav>
+    <h1>List Of Vehicles</h1>
     <div id="filter-controls">
         <select id="sort-by" onchange="applyFilters()">
             <option value="none">Sort By...</option>
@@ -43,7 +44,6 @@
         </select>
         <input type="text" id="search-input" onkeyup="applySearch()" placeholder="Filter by Make or Model">
     </div>
-    <h1>List Of Vehicles</h1>
     <div class="catalog-flex" id="catalog-container">
         <!-- automatically fill this with vehicles from the database -->
     </div>
