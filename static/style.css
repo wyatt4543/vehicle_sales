@@ -55,16 +55,25 @@ h1 {
     object-fit: contain;
 }
 
-button {
-    font-family: Arial, sans-serif;
-}
-
+/* Purchase button formatting */
 .catalog-item > button {
     width: 10em;
     height: 2.5em;
-    background-color: #d8c038;
+    background-color: rgb(237, 190, 34);
+    font-weight: bold;
+    font-size: 15px;
 }
 
+.catalog-item > button:hover {
+    background-color: rgb(213, 171, 31);
+}
+
+.catalog-item > button:active {
+    background-color: rgb(200, 160, 30);
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
+}
+
+/* Dropdown formatting */
 .dropdown {text-align: right;
            position: relative;}
 
