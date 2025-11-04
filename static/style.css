@@ -84,7 +84,7 @@ h1 {
     height: 2.5em;
     background-color: #edbe22;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 1em;
 }
 
 .catalog-item > button:hover {
@@ -92,7 +92,6 @@ h1 {
 }
 
 .catalog-item > button:active {
-    background-color: rgb(200, 160, 30);
     box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
 }
 
