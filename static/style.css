@@ -1,6 +1,11 @@
+/*Whole page formatting */
+body {
+    margin: 0 0 auto;
+}
+
 /* Nav bar formatting */
 nav {
-    background-color: hsl(198, 87%, 43%);
+    background-color: #0e94cd;
     padding-bottom: 0.75em;
 }
     
@@ -47,8 +52,8 @@ h1 {
 .catalog-item {
     background-color: #f9f9f9;
     border: 1px solid #acacac;
-    padding: 20px;
-    max-width: 300px;
+    padding: 0px 0px 20px;
+    width: 300px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
@@ -56,11 +61,19 @@ h1 {
 
 }
 
+.catalog-item > h2 {
+    background-color: #2B303A;
+    color: white;
+    margin: 0px;
+    padding: 0.5em 0em;
+}
+
 .catalog-item > img {
     max-width: 300px;
     height: 200px; /*set the height to keep images the same size*/
     display: block; /* Removes extra space below the image */
-    margin: 0 auto; /* Centers the image horizontally */
+    justify-content: center;
+    margin: 0 auto 5px;
     overflow: hidden;
     object-fit: contain;
 }
@@ -69,7 +82,7 @@ h1 {
 .catalog-item > button {
     width: 10em;
     height: 2.5em;
-    background-color: rgb(237, 190, 34);
+    background-color: #edbe22;
     font-weight: bold;
     font-size: 15px;
 }
