@@ -56,6 +56,7 @@ h1 {
     width: 300px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
     box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
     flex: 1 1 250px; /* Make items flexible and ensure a minimum width */
 
@@ -76,6 +77,26 @@ h1 {
     margin: 0 auto 5px;
     overflow: hidden;
     object-fit: contain;
+}
+
+.catalog-item > .vehicle-stats {
+    display: flex;
+}
+
+.catalog-item > .vehicle-stats > .vehicle-price {
+    color: white;
+    background-color: #09814A;
+    margin: 0;
+    padding: 5px 0;
+    flex-grow: 1;
+}
+
+.catalog-item > .vehicle-stats > .vehicle-stock {
+    color: black;
+    background-color: lightgrey;
+    margin: 0;
+    padding: 5px 0;
+    flex-grow: 1;
 }
 
 /* Purchase button formatting */

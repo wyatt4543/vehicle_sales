@@ -18,7 +18,8 @@ function renderProducts(number) {
         const item = document.createElement('div');
         item.classList.add('catalog-item');
         item.innerHTML = `<h2>${filteredData[i].make} ${filteredData[i].model}</h2>
-        <p> Stock: ${filteredData[i].stock} Price: $${filteredData[i].price.toLocaleString()}</p>
+        <div class="vehicle-stats"><p class="vehicle-price"> Price: $${filteredData[i].price.toLocaleString()}</p>
+        <p class="vehicle-stock"> Stock: ${filteredData[i].stock}</p></div>
         <img src="/static/Vehicle Images/IMG${String(filteredData[i].vehicleID).padStart(3, '0')}.png" alt="${filteredData[i].make} ${filteredData[i].model}">
         <button onclick="transferPurchase(${i})" type="button" id="purchase">Purchase</button>`;
         container.appendChild(item);
