@@ -164,3 +164,12 @@ document.getElementById("confirmButton").addEventListener("click", async functio
         window.location.href = '/'; // Redirect to your desired success page
     });
 });
+
+function dropDown() {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (dropdownContent.style.visibility === 'hidden') {
+        dropdownContent.style.visibility = 'visible';
+    } else {
+        dropdownContent.style.visibility = 'hidden';
+    }
+}

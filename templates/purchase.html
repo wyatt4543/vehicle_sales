@@ -6,13 +6,34 @@
   <title>Purchase A Vehicle</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='purchase-style.css') }}">
 </head>
-
 <body>
-
-  <header>
-    <button onclick="location.href='/'" class="nav-button">Home</button>
-    <button class="nav-button">User</button>
-  </header>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+        {% if session["username"] %}
+        {% if session["username"] == "Admin" %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">Manager</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-user">Manage User Information</a><br>
+                <a href="/vehicle-inventory">Manage Vehicle Inventory</a><br>
+                <a href="/sales-report">Check Sales Report</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">User</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-payment">Mail &amp; Payment Info</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
+        <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+        {% endif %}
+    </nav>
 
     <section class="vehicle-section">
     <div class="vehicle-info">

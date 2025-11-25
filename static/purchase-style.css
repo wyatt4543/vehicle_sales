@@ -1,9 +1,82 @@
 /* --- Global Page Layout --- */
+/*Whole page formatting */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
+    margin: 0 0 auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+/*Nav bar fomatting*/
+nav {
+    background-color: #0e94cd;
+    padding-bottom: 0.75em;
+    display: flex;
+    justify-content: space-between;
+}
+    
+nav button {
+    background-color:white;
+    color: hsl(198, 87%, 43%);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+nav .dropdown {
+    text-align: right;
+}
+
+nav button:hover {
+    background-color: hsl(198, 85%, 37%);
+    color: #eaeaea;
+}
+
+nav button:active {
+    box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+    background-color: hsl(198, 86%, 30%);
+    color: #cbcbcb;
+}
+
+/* Dropdown formatting */
+.dropdown-content {
+    border: 2px solid #29292b;
+    box-shadow: rgb(0, 0, 0, 75%) 0px 0px 10px;
+    margin: 5px 10px 0px;
+    position: absolute;
+    right: 0;
+}
+
+.dropdown-content > br {
+    display: none;
+}
+
+.dropdown-content a {
+    background-color: hsl(198, 86%, 30%);
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
+
+.dropdown-content > a:hover {
+    background-color: hsl(198, 87%, 24%);
+    color: #eaeaea;
+}
+
+.dropdown-content > a:active {
+    background-color: hsl(198, 86%, 20%);
+    color: #cbcbcb;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
 }
 
 h1, h2 {
@@ -26,20 +99,6 @@ header {
     border-bottom: 3px solid black;
     background-color: white;
 }
-
-.nav-button {
-    background-color: #9bb0c7;
-    color: black;
-    border: 2px solid black;
-    padding: 10px 25px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-    .nav-button:hover {
-        background-color: #7a99b8;
-    }
 
 /* --- Vehicle Section --- */
 .vehicle-section {
