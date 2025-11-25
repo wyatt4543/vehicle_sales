@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='purchase-style.css') }}">
 </head>
 <body>
-    <nav>
+  <nav>
         <button onclick="location.href='/'" type="button">Home</button>
         {% if session["username"] %}
         {% if session["username"] == "Admin" %}
@@ -33,8 +33,7 @@
         <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
         <button onclick="location.href='/sign-in'" type="button">Sign In</button>
         {% endif %}
-    </nav>
-
+  </nav>
     <section class="vehicle-section">
     <div class="vehicle-info">
       <h2 id="vehicle-name">VEHICLE NAME</h2>

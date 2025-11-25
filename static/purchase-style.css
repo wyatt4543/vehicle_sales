@@ -1,7 +1,7 @@
-/* --- Global Page Layout --- */
 /*Whole page formatting */
 body {
     margin: 0 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 button {
@@ -156,32 +156,32 @@ header {
 }
 
 .info-box {
-    border: 2px solid black;
+    border: 1px solid #acacac;
     padding: 25px;
     width: 40%;
-    background-color: #f5f5f5;
-    border-radius: 6px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
 }
 
-    .info-box h2 {
-        text-align: center;
-        text-decoration: underline;
-        margin-bottom: 20px;
-    }
+.info-box > h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-    .info-box input[type="text"],
-    .info-box input[type="password"],
-    .info-box input[type="month"] {
-        width: 95%;
-        padding: 6px;
-        border: 1px solid gray;
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
+.info-box input[type="text"],
+.info-box input[type="password"],
+.info-box input[type="month"] {
+    width: 95%;
+    padding: 6px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 
-    .info-box label {
-        font-weight: bold;
-    }
+.info-box label {
+    font-weight: bold;
+}
 
 /* --- Delivery Section --- */
 .delivery-section {
