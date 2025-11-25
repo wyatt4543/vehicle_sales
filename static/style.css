@@ -3,13 +3,17 @@ body {
     margin: 0 0 auto;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* Nav bar formatting */
 nav {
     background-color: #0e94cd;
     padding-bottom: 0.75em;
 }
     
-nav > button {
+nav button {
     background-color:white;
     color: hsl(198, 87%, 43%);
     font-weight: bold;
@@ -23,12 +27,12 @@ nav > button {
     padding-bottom: 5px;
 }
 
-nav > button:hover {
+nav button:hover {
     background-color: hsl(198, 85%, 37%);
     color: #eaeaea;
 }
 
-nav > button:active {
+nav button:active {
     box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
     background-color: hsl(198, 86%, 30%);
     color: #cbcbcb;
@@ -119,17 +123,39 @@ h1 {
 /* Dropdown formatting */
 .dropdown {
     text-align: right;
-    position: relative;
 }
 
 .dropdown-content {
-    color: black;
-    padding: 12px 12px;
-    text-decoration: none;
-    display: block;
-    text-align: right;
+    border: 2px solid #29292b;
+    box-shadow: rgb(0, 0, 0, 75%) 0px 0px 10px;
+    margin: 5px 10px 0px;
     position: absolute;
     right: 0;
+}
+
+.dropdown-content > br {
+    display: none;
+}
+
+.dropdown-content a {
+    background-color: hsl(198, 86%, 30%);
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
+
+.dropdown-content > a:hover {
+    background-color: hsl(198, 87%, 24%);
+    color: #eaeaea;
+}
+
+.dropdown-content > a:active {
+    background-color: hsl(198, 86%, 20%);
+    color: #cbcbcb;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
 }
 
 #filter-controls {
