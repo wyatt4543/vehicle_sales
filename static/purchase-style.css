@@ -165,7 +165,10 @@ header {
 
 .info-box > h2 {
     text-align: center;
-    margin-bottom: 20px;
+    background-color: #2B303A;
+    color: white;
+    margin: -25px -25px 25px;
+    padding: .75em 0em;
 }
 
 .info-box input[type="text"],
@@ -173,36 +176,38 @@ header {
 .info-box input[type="month"] {
     width: 95%;
     padding: 6px;
-    border: 1px solid gray;
-    border-radius: 4px;
+    border: 2px solid grey;
     margin-top: 5px;
     margin-bottom: 10px;
 }
 
 .info-box label {
     font-weight: bold;
+    font-size: large;
 }
 
 /* --- Delivery Section --- */
 .delivery-section {
-    border: 2px solid black;
-    width: 80%;
+    background-color: #f9f9f9;
+    border: 1px solid #acacac;
+    width: 50%;
     margin: 40px auto;
     padding: 20px;
-    background-color: #f5f5f5;
     text-align: center;
-    border-radius: 6px;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
 }
 
     .delivery-section h2 {
-        text-decoration: underline;
-        margin-bottom: 15px;
+        background-color: #2B303A;
+        color: white;
+        margin: -20px -20px 20px;
+        padding: .75em 0em;
     }
 
     .delivery-section label {
         font-weight: bold;
+        font-size: larger;
         display: block;
-        margin: 10px 0;
     }
 
 /* --- Confirm Purchase --- */
@@ -212,21 +217,21 @@ header {
 }
 
 #confirmButton {
-    background-color: #ffeb3b; /* yellow */
+    background-color: #edbe22; /* yellow */
     color: black;
     font-weight: bold;
     font-size: 18px;
     padding: 15px 40px;
-    border: 2px solid black;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 3px 3px 0px black;
 }
 
     #confirmButton:hover {
-        background-color: #fdd835;
-        transform: translateY(-2px);
+        background-color: rgb(213, 171, 31);
+    }
+
+    #confirmButton:active {
+        transform: translateY(2px);
         transition: 0.2s;
+        box-shadow: inset 0px 5px 0.5em rgb(0, 0, 0, 0.5);
     }
 
 .confirm-section label {
