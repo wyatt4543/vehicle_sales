@@ -1,4 +1,4 @@
-/*Whole page formatting */
+/* Whole page formatting */
 body {
     margin: 0 0 auto;
 }
@@ -10,7 +10,9 @@ button {
 /* Nav bar formatting */
 nav {
     background-color: #0e94cd;
+    box-shadow: 0px 5px 1em rgb(0, 0, 0, 0.3);
     padding-bottom: 0.75em;
+    margin-bottom: 3em;
 }
     
 nav button {
@@ -33,6 +35,8 @@ nav button:hover {
 }
 
 nav button:active {
+    transform: translateY(2px);
+    transition: 0.2s;
     box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
     background-color: hsl(198, 86%, 30%);
     color: #cbcbcb;
@@ -117,6 +121,8 @@ h1 {
 }
 
 .catalog-item > button:active {
+    transform: translateY(2px);
+    transition: 0.2s;
     box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
 }
 

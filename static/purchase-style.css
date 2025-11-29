@@ -11,9 +11,11 @@ button {
 /*Nav bar fomatting*/
 nav {
     background-color: #0e94cd;
-    padding-bottom: 0.75em;
+    box-shadow: 0px 5px 1em rgb(0, 0, 0, 0.3);
     display: flex;
     justify-content: space-between;
+    padding-bottom: 0.75em;
+    margin-bottom: 3em;
 }
     
 nav button {
