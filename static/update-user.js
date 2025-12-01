@@ -42,3 +42,11 @@ function renderUserInfo() {
         <input type="submit" value="Update">`;
 }
 
+function dropDown() {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (dropdownContent.style.visibility === 'hidden') {
+        dropdownContent.style.visibility = 'visible';
+    } else {
+        dropdownContent.style.visibility = 'hidden';
+    }
+}
