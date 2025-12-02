@@ -45,6 +45,7 @@ nav button:active {
 /* --- Info Section (Mail + Payment) --- */
 #info-section {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 40px 0;
 }
