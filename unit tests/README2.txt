@@ -4,4 +4,7 @@ pip install pytest
 First, open command prompt in the main directory. Then, follow either step for testing.
 
 To run the tests automatically type:
-pytest "integration tests"
+pytest "unit tests"
+
+To run an individual test type:
+pytest "unit tests"/test_name.py
