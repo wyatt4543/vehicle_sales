@@ -1,8 +1,10 @@
 Assuming you already have all of the dependencies for Python from README1 run the following for testing: 
 pip install pytest
 
+First, open command prompt in the main directory. Then, follow either step for testing.
+
 To run the tests automatically type:
-pytest FOLDER/FOR/UNIT_TESTS
+pytest "unit tests"
 
 To run an individual test type:
-pytest FOLDER/FOR/UNIT_TESTS/Test_Name.py
+pytest "unit tests"/test_name.py
