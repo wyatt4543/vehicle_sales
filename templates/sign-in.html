@@ -1,3 +1,9 @@
+<!--
+written by: Wyatt McDonnell
+tested by: Wyatt McDonnell
+debugged by: Wyatt McDonnell
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +17,13 @@
 </nav>
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flashes">
-            {% for category, message in messages %}
-                <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     {% endwith %}
     <h1>Sign In</h1>
     <form action="/sign-in" method="post">

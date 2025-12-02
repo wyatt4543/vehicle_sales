@@ -1,103 +1,109 @@
+<!--
+written by: Wyatt McDonnell
+tested by: Wyatt McDonnell
+debugged by: Wyatt McDonnell
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Purchase A Vehicle</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='purchase-style.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purchase A Vehicle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='purchase-style.css') }}">
 </head>
 
 <body>
 
-  <header>
-    <button onclick="location.href='/'" class="nav-button">Home</button>
-    <button class="nav-button">User</button>
-  </header>
+    <header>
+        <button onclick="location.href='/'" class="nav-button">Home</button>
+        <button class="nav-button">User</button>
+    </header>
 
     <section class="vehicle-section">
-    <div class="vehicle-info">
-      <h2 id="vehicle-name">VEHICLE NAME</h2>
-      <div class="vehicle-image-container"><img src="" id="vehicle-image" alt="VEHICLE IMAGE"></div>
-    </div>
+        <div class="vehicle-info">
+            <h2 id="vehicle-name">VEHICLE NAME</h2>
+            <div class="vehicle-image-container"><img src="" id="vehicle-image" alt="VEHICLE IMAGE"></div>
+        </div>
 
-    <div class="vehicle-total">
-      <h2><u>Total</u></h2>
-      <h1 class="total-amount" id="total-amount">$$$</h1>
-    </div>
-  </section>
+        <div class="vehicle-total">
+            <h2><u>Total</u></h2>
+            <h1 class="total-amount" id="total-amount">$$$</h1>
+        </div>
+    </section>
 
 
     <section class="info-section">
-    <!-- Mail Information -->
-    <div class="info-box">
-      <h2>Mail Information</h2>
-      <form id="mailForm">
-        <label for="address">Street Address:</label><br>
-        <input type="text" id="address" name="address" required><br><br>
+        <!-- Mail Information -->
+        <div class="info-box">
+            <h2>Mail Information</h2>
+            <form id="mailForm">
+                <label for="address">Street Address:</label><br>
+                <input type="text" id="address" name="address" required><br><br>
 
-        <label for="address2">Apt., Suite, Etc.:</label><br>
-        <input type="text" id="address2" name="address2"><br><br>
+                <label for="address2">Apt., Suite, Etc.:</label><br>
+                <input type="text" id="address2" name="address2"><br><br>
 
-        <label for="city">City:</label><br>
-        <input type="text" id="city" name="city" required><br><br>
+                <label for="city">City:</label><br>
+                <input type="text" id="city" name="city" required><br><br>
 
-        <label for="state">State/Province:</label><br>
-        <input type="text" id="state" name="state" required><br><br>
+                <label for="state">State/Province:</label><br>
+                <input type="text" id="state" name="state" required><br><br>
 
-        <label for="zip">Postal/Zip Code:</label><br>
-        <input type="text" id="zip" name="zip" required><br><br>
+                <label for="zip">Postal/Zip Code:</label><br>
+                <input type="text" id="zip" name="zip" required><br><br>
 
-        <label>
-          <input type="checkbox" id="mailPurchaseInfo"> Mail purchase information
-        </label><br>
-        <label>
-          <input type="checkbox" id="emailPurchaseInfo"> Email purchase information
-        </label>
-      </form>
-    </div>
+                <label>
+                    <input type="checkbox" id="mailPurchaseInfo"> Mail purchase information
+                </label><br>
+                <label>
+                    <input type="checkbox" id="emailPurchaseInfo"> Email purchase information
+                </label>
+            </form>
+        </div>
 
-    <!-- Payment Information -->
-    <div class="info-box">
-      <h2>Payment Information</h2>
-      <form id="paymentForm">
-        <label for="cardName">Card Holder Name:</label><br>
-        <input type="text" id="cardName" name="cardName" required><br><br>
+        <!-- Payment Information -->
+        <div class="info-box">
+            <h2>Payment Information</h2>
+            <form id="paymentForm">
+                <label for="cardName">Card Holder Name:</label><br>
+                <input type="text" id="cardName" name="cardName" required><br><br>
 
-        <label for="cardNumber">Card Number:</label><br>
-        <input type="text" id="cardNumber" name="cardNumber" required><br><br>
+                <label for="cardNumber">Card Number:</label><br>
+                <input type="text" id="cardNumber" name="cardNumber" required><br><br>
 
-        <label for="expDate">Expiration Date:</label><br>
-        <input type="month" id="expDate" name="expDate" required><br><br>
+                <label for="expDate">Expiration Date:</label><br>
+                <input type="month" id="expDate" name="expDate" required><br><br>
 
-        <label for="cvv">Security Code:</label><br>
-        <input type="password" id="cvv" name="cvv" required maxlength="4"><br><br>
-      </form>
-    </div>
-  </section>
+                <label for="cvv">Security Code:</label><br>
+                <input type="password" id="cvv" name="cvv" required maxlength="4"><br><br>
+            </form>
+        </div>
+    </section>
 
 
     <section class="delivery-section">
-    <h2>Delivery Options</h2>
-    <form id="deliveryForm">
-      <label>
-        <input type="radio" name="deliveryOption" value="in-store" required>
-        In-Store Pickup
-      </label><br>
+        <h2>Delivery Options</h2>
+        <form id="deliveryForm">
+            <label>
+                <input type="radio" name="deliveryOption" value="in-store" required>
+                In-Store Pickup
+            </label><br>
 
-      <label>
-        <input type="radio" name="deliveryOption" value="delivery">
-        Deliver to Address
-      </label>
-    </form>
-  </section>
+            <label>
+                <input type="radio" name="deliveryOption" value="delivery">
+                Deliver to Address
+            </label>
+        </form>
+    </section>
 
 
     <section class="confirm-section">
-      <button id="confirmButton">Confirm Purchase</button><br>
-    <label>
-      <input type="checkbox" id="saveInfo"> Save information for future purchases
-    </label>
-  </section>
-  <script src="{{ url_for('static', filename='purchase.js') }}"></script>
+        <button id="confirmButton">Confirm Purchase</button><br>
+        <label>
+            <input type="checkbox" id="saveInfo"> Save information for future purchases
+        </label>
+    </section>
+    <script src="{{ url_for('static', filename='purchase.js') }}"></script>
 </body>
 </html>
