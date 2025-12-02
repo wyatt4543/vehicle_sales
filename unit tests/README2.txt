@@ -1,3 +1,5 @@
+All unit tests in their current form were written by Wyatt McDonnell
+
 Assuming you already have all of the dependencies for Python from README1 run the following for testing: 
 pip install pytest
 
