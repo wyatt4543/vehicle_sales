@@ -1,3 +1,7 @@
+# written by: Wyatt McDonnell
+# tested by: Wyatt McDonnell
+# debugged by: Wyatt McDonnell & William Steele
+
 from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
 import mysql.connector
 import bcrypt
