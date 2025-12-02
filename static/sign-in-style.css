@@ -62,11 +62,12 @@ form {
     box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.5);
         
     input[type=submit] {
-        background-color: rgb(237, 190, 34);
+        background-color: #edbe22; /* yellow */
         color: black;
         font-weight: bold;
-        font-size: 20px;
-        padding: 5px;
+        font-size: 18px;
+        padding: 10px 20px;
+        margin-top: 1em;
     }
         
     input[type=submit]:hover {
