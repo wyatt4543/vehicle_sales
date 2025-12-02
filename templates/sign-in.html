@@ -12,10 +12,10 @@ debugged by: Wyatt McDonnell
     <title>Sign In</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='sign-in-style.css') }}">
 </head>
-<nav>
-    <button onclick="location.href='/'" type="button">Home</button>
-</nav>
 <body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+    </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <ul class="flashes">

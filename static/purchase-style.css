@@ -1,9 +1,88 @@
-/* --- Global Page Layout --- */
+/*
+written by: Wyatt McDonnell & Mamadou Oumar Ndiaye & Colin Showalter
+*/
+
+/*Whole page formatting */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    margin: 0;
-    padding: 0;
+    margin: 0 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+/*Nav bar fomatting*/
+nav {
+    background-color: #0e94cd;
+    box-shadow: 0px 5px 1em rgb(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.75em;
+    margin-bottom: 3em;
+}
+    
+nav button {
+    background-color:white;
+    color: hsl(198, 87%, 43%);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+nav .dropdown {
+    text-align: right;
+}
+
+nav button:hover {
+    background-color: hsl(198, 85%, 37%);
+    color: #eaeaea;
+}
+
+nav button:active {
+    box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+    background-color: hsl(198, 86%, 30%);
+    color: #cbcbcb;
+}
+
+/* Dropdown formatting */
+.dropdown-content {
+    border: 2px solid #29292b;
+    box-shadow: rgb(0, 0, 0, 75%) 0px 0px 10px;
+    margin: 5px 10px 0px;
+    position: absolute;
+    right: 0;
+}
+
+.dropdown-content > br {
+    display: none;
+}
+
+.dropdown-content a {
+    background-color: hsl(198, 86%, 30%);
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
+
+.dropdown-content > a:hover {
+    background-color: hsl(198, 87%, 24%);
+    color: #eaeaea;
+}
+
+.dropdown-content > a:active {
+    background-color: hsl(198, 86%, 20%);
+    color: #cbcbcb;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
 }
 
 h1, h2 {
@@ -27,41 +106,27 @@ header {
     background-color: white;
 }
 
-.nav-button {
-    background-color: #9bb0c7;
-    color: black;
-    border: 2px solid black;
-    padding: 10px 25px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-    .nav-button:hover {
-        background-color: #7a99b8;
-    }
-
 /* --- Vehicle Section --- */
 .vehicle-section {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin: 40px 0;
+    margin: 40px auto;
+    width: 95%;
 }
 
 .vehicle-info, .vehicle-total {
-    border: 2px solid black;
-    padding: 20px;
-    background-color: #f5f5f5;
-    width: 35%;
+    background-color: #f9f9f9;
+    border: 1px solid #acacac;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
     text-align: center;
+    padding: 20px;
+    width: 35%;
 }
 
 .vehicle-image-container {
     width: 100%;
     height: 300px;
-    background-color: #ccc;
-    border: 2px solid black;
     display: flex;
     padding: 2px;
     justify-content: center;
@@ -77,16 +142,24 @@ header {
         object-fit: contain;
     }
 
-.vehicle-total h2 {
-    font-size: 22px;
-    text-decoration: underline;
+.vehicle-section h2 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.vehicle-info > h2 {
+    color: #f9f9f9;
+    background-color: #2B303A;
+    padding: 20px;
+    margin: -20px;
 }
 
 .total-amount {
     color: green;
-    font-size: 34px;
+    font-size: 5em;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 25px;
+    margin-bottom: 0;
 }
 
 /* --- Info Section (Mail + Payment) --- */
@@ -97,53 +170,58 @@ header {
 }
 
 .info-box {
-    border: 2px solid black;
+    border: 1px solid #acacac;
     padding: 25px;
     width: 40%;
-    background-color: #f5f5f5;
-    border-radius: 6px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
 }
 
-    .info-box h2 {
-        text-align: center;
-        text-decoration: underline;
-        margin-bottom: 20px;
-    }
+.info-box > h2 {
+    text-align: center;
+    background-color: #2B303A;
+    color: white;
+    margin: -25px -25px 25px;
+    padding: .75em 0em;
+}
 
-    .info-box input[type="text"],
-    .info-box input[type="password"],
-    .info-box input[type="month"] {
-        width: 95%;
-        padding: 6px;
-        border: 1px solid gray;
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
+.info-box input[type="text"],
+.info-box input[type="password"],
+.info-box input[type="month"] {
+    width: 95%;
+    padding: 6px;
+    border: 2px solid grey;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
 
-    .info-box label {
-        font-weight: bold;
-    }
+.info-box label {
+    font-weight: bold;
+    font-size: large;
+}
 
 /* --- Delivery Section --- */
 .delivery-section {
-    border: 2px solid black;
-    width: 80%;
+    background-color: #f9f9f9;
+    border: 1px solid #acacac;
+    width: 50%;
     margin: 40px auto;
     padding: 20px;
-    background-color: #f5f5f5;
     text-align: center;
-    border-radius: 6px;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
 }
 
     .delivery-section h2 {
-        text-decoration: underline;
-        margin-bottom: 15px;
+        background-color: #2B303A;
+        color: white;
+        margin: -20px -20px 20px;
+        padding: .75em 0em;
     }
 
     .delivery-section label {
         font-weight: bold;
+        font-size: larger;
         display: block;
-        margin: 10px 0;
     }
 
 /* --- Confirm Purchase --- */
@@ -153,21 +231,21 @@ header {
 }
 
 #confirmButton {
-    background-color: #ffeb3b; /* yellow */
+    background-color: #edbe22; /* yellow */
     color: black;
     font-weight: bold;
     font-size: 18px;
     padding: 15px 40px;
-    border: 2px solid black;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 3px 3px 0px black;
 }
 
     #confirmButton:hover {
-        background-color: #fdd835;
-        transform: translateY(-2px);
+        background-color: rgb(213, 171, 31);
+    }
+
+    #confirmButton:active {
+        transform: translateY(2px);
         transition: 0.2s;
+        box-shadow: inset 0px 5px 0.5em rgb(0, 0, 0, 0.5);
     }
 
 .confirm-section label {

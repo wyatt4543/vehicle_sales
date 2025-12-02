@@ -1,0 +1,130 @@
+/*
+written by: Wyatt McDonnell & Colin Showalter
+*/
+
+/*Whole page formatting */
+body {
+    margin: 0 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+/*Nav bar fomatting*/
+nav {
+    background-color: #0e94cd;
+    box-shadow: 0px 5px 1em rgb(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.75em;
+    margin-bottom: 3em;
+}
+    
+nav button {
+    background-color:white;
+    color: hsl(198, 87%, 43%);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+nav .dropdown {
+    text-align: right;
+}
+
+nav button:hover {
+    background-color: hsl(198, 85%, 37%);
+    color: #eaeaea;
+}
+
+nav button:active {
+    transform: translateY(2px);
+    transition: 0.2s;
+    box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+    background-color: hsl(198, 86%, 30%);
+    color: #cbcbcb;
+}
+
+/* Dropdown formatting */
+.dropdown-content {
+    border: 2px solid #29292b;
+    box-shadow: rgb(0, 0, 0, 75%) 0px 0px 10px;
+    margin: 5px 10px 0px;
+    position: absolute;
+    right: 0;
+}
+
+.dropdown-content > br {
+    display: none;
+}
+
+.dropdown-content a {
+    background-color: hsl(198, 86%, 30%);
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
+
+.dropdown-content > a:hover {
+    background-color: hsl(198, 87%, 24%);
+    color: #eaeaea;
+}
+
+.dropdown-content > a:active {
+    background-color: hsl(198, 86%, 20%);
+    color: #cbcbcb;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
+}
+
+/* Page title formatting */
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+/* Order table formatting */
+#order-table {
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
+    width: 90%;
+    margin: auto;
+}
+
+.orders-style {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .orders-style th,
+    .orders-style td {
+        border: 1px solid #acacac;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .orders-style th {
+        background-color: #2B303A;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .orders-style tr:nth-child(odd) {
+        background-color: #eeeeee;
+    }
+
+    .orders-style tr:hover {
+        background-color: #acacac;
+    }

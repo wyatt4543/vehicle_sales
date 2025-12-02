@@ -1,78 +1,175 @@
-nav {
-    background-color: hsl(198, 87%, 43%);
-    padding-bottom: 0.75em;
-    button {background-color:white;
-            color: hsl(198, 87%, 43%);
-            font-weight: bold;
-            font-size: 20px;
-            margin-top: 0.5em;
-            margin-right: 0.5em;
-            margin-left: 0.5em;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 5px;
-            padding-bottom: 5px;}
-    button:hover {background-color: hsl(198, 85%, 37%);
-                  color: #eaeaea;}
-    button:active {box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
-                   background-color: hsl(198, 86%, 30%);
-                   color: #cbcbcb;}
-}
+/*
+written by: Wyatt McDonnell & Colin Showalter
+*/
 
+/* Whole page formatting */
 body {
-    font-family: Arial, sans-serif;
+    margin: 0 0 auto;
 }
 
+button {
+    cursor: pointer;
+}
+
+/* Nav bar formatting */
+nav {
+    background-color: #0e94cd;
+    box-shadow: 0px 5px 1em rgb(0, 0, 0, 0.3);
+    padding-bottom: 0.75em;
+    margin-bottom: 3em;
+}
+    
+nav button {
+    background-color:white;
+    color: hsl(198, 87%, 43%);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+nav button:hover {
+    background-color: hsl(198, 85%, 37%);
+    color: #eaeaea;
+}
+
+nav button:active {
+    transform: translateY(2px);
+    transition: 0.2s;
+    box-shadow: inset 0px 0px 0.5em rgb(0, 0, 0, 0.5);
+    background-color: hsl(198, 86%, 30%);
+    color: #cbcbcb;
+}
+
+/* Page title formatting */
 h1 {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
+/* Vehicle cards formatting */
 .catalog-flex {
     display: flex;
     flex-wrap: wrap; /* Allows items to wrap to the next line */
     gap: 20px; /* Adds space between items */
     padding: 20px;
-    justify-content: left; /* Distributes items evenly in a line */
+    justify-content: center; /* Distributes items evenly in a line */
 }
 
 .catalog-item {
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 20px;
-    max-width: 300px;
+    border: 1px solid #acacac;
+    padding: 0px 0px 20px;
+    margin-top: 1em;
+    width: 300px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    /* Make items flexible and ensure a minimum width */
-    flex: 1 1 250px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
+    flex: 1 1 250px; /* Make items flexible and ensure a minimum width */
+
+}
+
+.catalog-item > h2 {
+    background-color: #2B303A;
+    color: white;
+    margin: 0px;
+    padding: 0.5em 0em;
 }
 
 .catalog-item > img {
     max-width: 300px;
     height: 200px; /*set the height to keep images the same size*/
     display: block; /* Removes extra space below the image */
-    margin: 0 auto; /* Centers the image horizontally */
+    justify-content: center;
+    margin: 0 auto 5px;
     overflow: hidden;
     object-fit: contain;
 }
 
-button {
-    font-family: Arial, sans-serif;
+.catalog-item > .vehicle-stats {
+    display: flex;
+    border-bottom: 1px solid #acacac;
 }
 
+.catalog-item > .vehicle-stats > .vehicle-price {
+    color: white;
+    background-color: #09814A;
+    margin: 0;
+    padding: 5px 0;
+    flex-grow: 1;
+}
+
+.catalog-item > .vehicle-stats > .vehicle-stock {
+    color: black;
+    background-color: lightgrey;
+    margin: 0;
+    padding: 5px 0;
+    flex-grow: 1;
+}
+
+/* Purchase button formatting */
 .catalog-item > button {
     width: 10em;
     height: 2.5em;
-    background-color: #d8c038;
+    background-color: #edbe22;
+    font-weight: bold;
+    font-size: 1em;
 }
 
-.dropdown {text-align: right;
-           position: relative;}
+.catalog-item > button:hover {
+    background-color: rgb(213, 171, 31);
+}
+
+.catalog-item > button:active {
+    transform: translateY(2px);
+    transition: 0.2s;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
+}
+
+/* Dropdown formatting */
+.dropdown {
+    text-align: right;
+}
 
 .dropdown-content {
-    color: black;
-    padding: 12px 12px;
-    text-decoration: none;
-    display: block;
-    text-align: right;
+    border: 2px solid #29292b;
+    box-shadow: rgb(0, 0, 0, 75%) 0px 0px 10px;
+    margin: 5px 10px 0px;
     position: absolute;
-    right: 0;}
+    right: 0;
+}
+
+.dropdown-content > br {
+    display: none;
+}
+
+.dropdown-content a {
+    background-color: hsl(198, 86%, 30%);
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    padding: 5px;
+    display: block;
+}
+
+.dropdown-content > a:hover {
+    background-color: hsl(198, 87%, 24%);
+    color: #eaeaea;
+}
+
+.dropdown-content > a:active {
+    background-color: hsl(198, 86%, 20%);
+    color: #cbcbcb;
+    box-shadow: inset 0px 0px 0.75em rgb(0, 0, 0, 0.5);
+}
+
+#filter-controls {
+    text-align: center;
+}

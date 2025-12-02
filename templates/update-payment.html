@@ -10,19 +10,26 @@ debugged by: Wyatt McDonnell
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Payment and Mail Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='update-payment-style.css') }}">
 </head>
 <body>
     <nav>
         <button onclick="location.href='/'" type="button">Home</button>
     </nav>
-    <h1 id="mail-header">Mail Information</h1>
-    <form id="mail-form" action="/update-payment" method="post">
-        <!-- Load Mail Info-->
-    </form>
-    <h1 id="payment-header">Payment Information</h1>
-    <form id="payment-form" action="/update-payment" method="post">
-        <!-- Load Payment Info-->
-    </form>
+    <section id="info-section">
+        <div class="info-box">
+            <h1 id="mail-header">Mail Information</h1>
+            <form id="mail-form" action="/update-payment" method="post">
+            <!-- Load Mail Info-->
+            </form>
+        </div>
+        <div class="info-box">
+            <h1 id="payment-header">Payment Information</h1>
+            <form id="payment-form" action="/update-payment" method="post">
+            <!-- Load Payment Info-->
+            </form>
+        </div>
+    </section>
     <script src="{{ url_for('static', filename='update-payment.js') }}"></script>
 </body>
 </html>

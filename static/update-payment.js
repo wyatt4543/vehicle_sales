@@ -39,7 +39,9 @@ function renderPaymentMailInfo() {
         <label for="postal_code">Postal/Zip Code</label><br>
         <input type="text" id="postal_code" name="postal_code" value=${getValue(paymentMailData[0].postal_code)}><br><br>
 
-        <input type="submit" value="Save Info">`;
+        <div class="save-button">
+        <input type="submit" value="Save Info">
+        </div>`;
 
     // set payment form
     paymentContainer.innerHTML = `<input type="hidden" name="form-identifier" value="payment-form">
@@ -56,6 +58,8 @@ function renderPaymentMailInfo() {
         <label for="security_code">Security Code</label><br>
         <input type="text" id="security_code" name="security_code" value=${getValue(paymentMailData[0].security_code)}><br><br>
 
-        <input type="submit" value="Save Info">`;
+        <div class="save-button">
+        <input type="submit" value="Save Info">
+        </div>`;
 }
 
