@@ -90,55 +90,37 @@ h1 {
     margin-bottom: 1em;
 }
 
-/* Form formatting */
-form {
-    background-color:#f9f9f9;
-    border: 1px solid #acacac;
-    text-align:center;
-    font-weight: bold;
-    font-family: arial;
-    max-width: 300px;
-    padding-top: 2em;
-    padding-bottom: 2em;
+/* Order table formatting */
+#order-table {
+    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.3);
+    width: 90%;
     margin: auto;
-    box-shadow: 0px 0px 0.5em rgb(0, 0, 0, 0.5);
-        
-    input[type=submit] {
-        background-color: #edbe22; /* yellow */
-        color: black;
+}
+
+.orders-style {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .orders-style th,
+    .orders-style td {
+        border: 1px solid #acacac;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .orders-style th {
+        background-color: #2B303A;
+        color: white;
+        font-size: 20px;
         font-weight: bold;
-        font-size: 18px;
-        padding: 10px 20px;
-        margin-top: 1em;
     }
 
-    input[type=submit]:hover {
-        background-color: rgb(213, 171, 31);
+    .orders-style tr:nth-child(odd) {
+        background-color: #eeeeee;
     }
 
-    input[type=submit]:active {
-        transform: translateY(2px);
-        transition: 0.2s;
-        box-shadow: inset 0px 5px 0.5em rgb(0, 0, 0, 0.5);
+    .orders-style tr:hover {
+        background-color: #acacac;
     }
-}
-
-/* Submit button formatting */
-#submit {
-    background-color: #edbe22; /* yellow */
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 10px 20px;
-    margin-top: 1em;
-}
-
-#submit:hover {
-    background-color: rgb(213, 171, 31);
-}
-
-#submit:active {
-    transform: translateY(2px);
-    transition: 0.2s;
-    box-shadow: inset 0px 5px 0.5em rgb(0, 0, 0, 0.5);
-}

@@ -23,3 +23,11 @@ function renderOrders(number) {
     };
 }
 
+function dropDown() {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (dropdownContent.style.visibility === 'hidden') {
+        dropdownContent.style.visibility = 'visible';
+    } else {
+        dropdownContent.style.visibility = 'hidden';
+    }
+}
