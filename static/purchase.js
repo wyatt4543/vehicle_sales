@@ -1,4 +1,8 @@
-﻿let make = localStorage.getItem('make');
+﻿// written by: Wyatt McDonnell & Mamadou Oumar Ndiaye
+// tested by: Wyatt McDonnell
+// debugged by: Wyatt McDonnell
+
+let make = localStorage.getItem('make');
 let model = localStorage.getItem('model');
 let price = localStorage.getItem('price');
 let vehicleID = localStorage.getItem('vehicleID');
