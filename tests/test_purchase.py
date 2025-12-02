@@ -1,36 +1,101 @@
-import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from app import app
 import pytest
+from app import app
 
-# Creates a test version of the Flask app
 @pytest.fixture
 def client():
-    app.config['TESTING'] = True            # Enable testing mode
-    app.config['SECRET_KEY'] = 'testkey'    # Required for session handling
-    return app.test_client()                # Return Flask test client
+    app.config["TESTING"] = True
+    return app.test_client()
 
-# Simulates a logged-in user (the /purchase page requires login)
-@pytest.fixture
-def logged_in_client(client):
-    with client.session_transaction() as sess:
-        sess['username'] = 'testuser'       # Fake user in session
-    return client
+# Helper for valid purchase form data
+def valid_data(**kwargs):
+    data = {
+        "address": "123 Road St",
+        "city": "Cityville",
+        "state": "TX",
+        "zip": "77777",
+        "phone": "1234567890",
+        "card-number": "4111111111111111",
+        "card-exp": "12/30",
+        "card-cvv": "123",
+        "delivery-method": "delivery",     # default
+        "receipt-mail": "yes",
+        "receipt-email": "yes"
+    }
+    data.update(kwargs)
+    return data
 
-# Test: The purchase page should load successfully
-def test_purchase_page_status_code(logged_in_client):
-    response = logged_in_client.get('/purchase')
-    assert response.status_code == 200      # Expect OK status
 
-# Test: The purchase page should contain key sections from the HTML
-def test_purchase_page_contains_required_text(logged_in_client):
-    response = logged_in_client.get('/purchase')
-    html = response.data.decode()           # Convert bytes → string
+# ------------------------------------------------------------
+# 1. Valid info, delivery, mail + email receipt
+# ------------------------------------------------------------
+def test_purchase_delivery_mail_email_success(client):
+    response = client.post("/purchase", data=valid_data(), follow_redirects=True)
 
-    # Check for important page elements
-    assert "Purchase" in html
-    assert "VEHICLE NAME" in html
-    assert "Mail Information" in html
-    assert "Payment Information" in html
-    assert "Delivery Options" in html
-    assert "Confirm Purchase" in html
+    assert response.status_code == 200
+    assert b"Success" in response.data
+    assert b"receipt" in response.data
+    assert b"email" in response.data
+    assert b"mail" in response.data
+
+
+# ------------------------------------------------------------
+# 2. Valid info, delivery only
+# ------------------------------------------------------------
+def test_purchase_delivery_only_success(client):
+    data = valid_data(receipt-mail="", receipt-email="")
+    response = client.post("/purchase", data=data, follow_redirects=True)
+
+    assert response.status_code == 200
+    assert b"Success" in response.data
+    assert b"pickup code" not in response.data  # delivery = no pickup code
+
+
+# ------------------------------------------------------------
+# 3. Valid info, pickup + mail + email receipt
+# ------------------------------------------------------------
+def test_purchase_pickup_mail_email_success(client):
+    data = valid_data(delivery-method="pickup")
+    response = client.post("/purchase", data=data, follow_redirects=True)
+
+    assert response.status_code == 200
+    assert b"Success" in response.data
+    assert b"pickup code" in response.data   # pickup = should receive code
+    assert b"receipt" in response.data
+    assert b"email" in response.data
+    assert b"mail" in response.data
+
+
+# ------------------------------------------------------------
+# 4. Valid info, pickup only
+# ------------------------------------------------------------
+def test_purchase_pickup_only_success(client):
+    data = valid_data(delivery-method="pickup", receipt-mail="", receipt-email="")
+    response = client.post("/purchase", data=data, follow_redirects=True)
+
+    assert response.status_code == 200
+    assert b"Success" in response.data
+    assert b"pickup code" in response.data
+
+
+# ------------------------------------------------------------
+# 5. Invalid information → user warned
+# ------------------------------------------------------------
+def test_purchase_invalid_info_failure(client):
+    invalid_data = {
+        "address": "### BAD ###",
+        "city": "??",
+        "state": "1!",
+        "zip": "abcde",
+        "phone": "NOTPHONE",
+        "card-number": "BADNUM",
+        "card-exp": "13/99",
+        "card-cvv": "xx",
+        "delivery-method": "delivery",
+        "receipt-mail": "yes",
+        "receipt-email": "yes"
+    }
+
+    response = client.post("/purchase", data=invalid_data, follow_redirects=True)
+
+    assert b"invalid" in response.data or b"error" in response.data or b"Invalid" in response.data
+    assert response.status_code == 200
