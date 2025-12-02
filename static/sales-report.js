@@ -1,3 +1,7 @@
+// written by: Wyatt McDonnell
+// tested by: Wyatt McDonnell
+// debugged by: Wyatt McDonnell
+
 let orderData = [];
 
 const container = document.getElementById('orders-container');

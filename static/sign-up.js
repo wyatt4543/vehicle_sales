@@ -1,3 +1,7 @@
+// written by: Wyatt McDonnell
+// tested by: Wyatt McDonnell
+// debugged by: Wyatt McDonnell
+
 function validatePassword() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirm-pass").value;

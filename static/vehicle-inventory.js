@@ -1,3 +1,7 @@
+// written by: Wyatt McDonnell
+// tested by: Wyatt McDonnell
+// debugged by: Wyatt McDonnell
+
 let vehicleData = [];
 
 const vehicleContainer = document.getElementById('vehicle-form');
