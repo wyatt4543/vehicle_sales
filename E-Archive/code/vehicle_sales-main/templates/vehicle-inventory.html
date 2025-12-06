@@ -1,0 +1,46 @@
+<!--
+written by: Wyatt McDonnell
+tested by: Wyatt McDonnell
+debugged by: Wyatt McDonnell
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Vehicle Inventory</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='vehicle-inventory-style.css') }}">
+</head>
+<body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+        {% if session["username"] %}
+        {% if session["username"] == "Admin" %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">Manager</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-user">Manage User Information</a><br>
+                <a href="/vehicle-inventory">Manage Vehicle Inventory</a><br>
+                <a href="/sales-report">Check Sales Report</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">User</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-payment">Mail &amp; Payment Info</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </nav>
+    <h1>Enter Vehicle Information</h1>
+    <form id="vehicle-form" action="/vehicle-inventory" method="post">
+        <!-- Load Vehicle Info -->
+    </form>
+    <script src="{{ url_for('static', filename='vehicle-inventory.js') }}"></script>
+</body>
+</html>

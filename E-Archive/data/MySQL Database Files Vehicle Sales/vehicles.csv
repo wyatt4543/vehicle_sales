@@ -1,0 +1,51 @@
+vehicleID,make,model,price,stock
+1,Toyota,Corolla,22725,99
+2,Toyota,Corolla Cross,24635,88
+3,Toyota,Prius,28550,20
+4,Toyota,Camry,30000,20
+5,Toyota,Tacoma,31590,23
+6,Ford,Escape,29515,21
+7,Ford,F-150,37450,10
+8,Ford,Bronco,39995,10
+9,Ford,Explorer,40050,17
+10,Ford,Transit,46710,10
+11,Chevrolet,Trax,20500,10
+12,Chevrolet,Trailblazer,23100,16
+13,Chevrolet,Equinox,28700,10
+14,Chevrolet,Colorado,31900,10
+15,Chevrolet,Suburban,59200,18
+16,Honda,Civic Sedan,24595,10
+17,Honda,HR-V,26200,10
+18,Honda,Civic Hatchback,27795,10
+19,Honda,Accord,28295,10
+20,Honda,Odyssey,42795,10
+21,Nissan,Versa,17190,10
+22,Nissan,Sentra,21590,10
+23,Nissan,Kicks,21830,10
+24,Nissan,Altima,27000,10
+25,Nissan,Frontier,32150,32
+26,Jeep,Compass,26900,10
+27,Jeep,Wrangler,32690,10
+28,Jeep,Cherokee,35000,41
+29,Jeep,Gladiator,38695,10
+30,Jeep,Wagoneer,59945,10
+31,Hyundai,Venue,20200,10
+32,Hyundai,Elantra,22125,10
+33,Hyundai,Kona,24550,10
+34,Hyundai,Sonata,26900,14
+35,Hyundai,Santa Fe,34300,10
+36,Kia,Soul,20490,10
+37,Kia,K4,21990,10
+38,Kia,Seltos,23690,10
+39,Kia,K5,27390,10
+40,Kia,Niro EV,39600,10
+41,Volkswagen,Jetta,22995,10
+42,Volkswagen,Taos,25495,10
+43,Volkswagen,Tiguan,30245,10
+44,Volkswagen,Golf GTI,32445,10
+45,Volkswagen,Atlas,39310,10
+46,Subaru,Crosstrek,26560,10
+47,Subaru,Legacy,26810,10
+48,Subaru,Forester,29995,16
+49,Subaru,Outback,29995,10
+50,Subaru,Solterra,38495,10

@@ -1,0 +1,440 @@
+# written by: Wyatt McDonnell
+# tested by: Wyatt McDonnell
+# debugged by: Wyatt McDonnell & William Steele
+
+from flask import Flask, render_template, jsonify, request, redirect, flash, session, url_for
+import mysql.connector
+import bcrypt
+import smtplib
+from datetime import date
+
+app = Flask(__name__)
+app.secret_key = 'super secret key'
+
+config = {
+    'host': 'fplg27.h.filess.io',
+    'user': 'VehicleSales_selection',
+    'password': '3964f4ec577fce81b6857f4807a2dee1e5e94ad3',
+    'port': '61032',
+    'database': 'VehicleSales_selection'
+}
+
+app.config['SESSION_TYPE'] = 'filesystem'
+
+#only for demo purposes
+config['ssl_disabled'] = True
+
+@app.route('/')
+def home():
+    if 'username' in session:
+        username = session['username']
+        app.logger.info(username)
+    # Serve the home page
+    return render_template('index.html')
+
+# Serve the various different pages
+@app.route('/purchase')
+def purchase():
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('purchase.html')
+    else:
+        return redirect('sign-in')
+
+# recieve purchase information
+@app.route('/purchase-info', methods=['POST'])
+def purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        emailPurchase = data.get('emailPurchase')
+        customer = data.get('customer')
+        vehicleName = data.get('vehicleName')
+        vehiclePrice = data.get('vehiclePrice')
+        deliveryCode = data.get('deliveryCode')
+        dateToday = date.today()
+        
+        #update vehicle stock in the database and email user if needed
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("UPDATE vehicles SET stock = stock - 1 WHERE vehicleID = %s;", (data.get('vehicleID'),))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        #insert the order's details into the database
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor(buffered=True)
+        cursor.execute("INSERT INTO orders (username, vehicle, price, date) VALUES (%s, %s, %s, %s)", (session['username'], vehicleName, int(vehiclePrice.replace(',', '')), dateToday))
+        cnx.commit()
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
+        #check if the user should be emailed
+        try:
+            if emailPurchase == True:
+                customer_email = ""
+
+                # fetch the user's email
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor(buffered=True)
+                cursor.execute("SELECT email FROM users WHERE username = %s", (session['username'],))
+                customer_email = cursor.fetchone()
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+                customer_email = customer_email[0]
+                if customer_email == "":
+                    raise Exception("email not found.")
+
+                #setup the rest of the details for the email
+                email = "vehiclesalesbot@gmail.com"
+
+                text = f"Subject: Online Vehicle Purchase Receipt\n\nCustomer: {customer}\r\nVehicle: {vehicleName}\r\nPrice: ${vehiclePrice}\r\nDate: {dateToday}"
+                #check if the user has a pick-up code
+                if deliveryCode != -1:
+                    text += f"\r\n\r\nThe pick-up code is: {deliveryCode}"
+
+                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.starttls()
+
+                server.login(email, "qewutidqrqlfokjh")
+                
+                server.sendmail(email, customer_email, text)
+
+                app.logger.info("Email has been sent to " + customer_email)
+
+        except Exception as e:
+            app.logger.exception(f"An unexpected error occurred: {e}")
+
+        return 'success', 200
+    else:
+        return 'bad data', 400
+
+# recieve purchase information
+@app.route('/save-purchase-info', methods=['POST'])
+def save_purchase_info():
+    if request.is_json:
+        data = request.get_json()
+        address = data.get('address')
+        address2 = data.get('address2')
+        city = data.get('city')
+        state = data.get('state')
+        postal_code = data.get('zip')
+        cardNumber = data.get('cardNumber')
+        expDate = data.get('expDate')
+        security_code = data.get('cvv')
+        
+        #update the user's stored purchase information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, cardNumber, expDate, security_code, session['username']))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return 'success', 200
+    else:
+        return 'bad data', 400
+
+# load the sales report
+@app.route('/sales-report')
+def sales_report():
+    if session['username'] == "Admin":
+        return render_template('sales-report.html')
+    else:
+        return "no permission"
+
+# code for updating the vehicle inventory
+@app.route('/vehicle-inventory', methods=['GET', 'POST'])
+def vehicle_inventory():
+    if request.method == 'POST':
+        #get all of the information for the vehicle stock update
+        name = request.form['name']
+        stock = request.form['stock']
+        price = request.form['price']
+        make, model = name.split(' ', 1)
+
+        #update the selected vehicle
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("UPDATE vehicles SET stock = %s, price = %s WHERE make = %s AND model = %s", (stock, price, make, model))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+    if session['username'] == "Admin":
+        return render_template('vehicle-inventory.html')
+    else:
+        return "no permission"
+
+
+# code for updating user information
+@app.route('/update-user', methods=['GET', 'POST'])
+def update_user():
+    if request.method == 'POST':
+        #get all of the information for the user update
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        new_username = request.form['new-username']
+        email = request.form['email']
+        username = request.form['username']
+
+        #update the selected user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("UPDATE users SET first_name = %s, last_name = %s, username = %s, email = %s WHERE username = %s;", (first_name, last_name, new_username, email, username))
+            cnx.commit()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    # check if the user is an admin
+    if session['username'] == "Admin":
+        return render_template('update-user.html')
+    else:
+        return "no permission"
+
+
+# code for updating payment & mail information
+@app.route('/update-payment', methods=['GET', 'POST'])
+def update_payment():
+    if request.method == 'POST':
+        #get all of the information for the payment or mail update
+        form_identifier = request.form['form-identifier']
+        
+        if form_identifier == "mail-form":
+            address = request.form['address']
+            address2 = request.form['address2']
+            city = request.form['city']
+            state = request.form['state']
+            postal_code = request.form['postal_code']
+
+            #update the user's payment information
+            try:
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor(buffered=True)
+                cursor.execute("UPDATE users SET address = %s, address2 = %s, city = %s, state = %s, postal_code = %s WHERE username = %s;", (address, address2, city, state, postal_code, session['username']))
+                cnx.commit()
+            except mysql.connector.Error as err:
+                app.logger.info("error:" + str(err))
+            finally:
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+        elif form_identifier == "payment-form":
+            name = request.form['name']
+            first_name, last_name = name.split(' ')
+            card_number = request.form['card_number']
+            expiration = request.form['expiration']
+            security_code = request.form['security_code']
+
+            #update the user's payment information
+            try:
+                cnx = mysql.connector.connect(**config)
+                cursor = cnx.cursor(buffered=True)
+                cursor.execute("UPDATE users SET first_name = %s, last_name = %s, card_number = %s, expiration = %s, security_code = %s WHERE username = %s;", (first_name, last_name, card_number, expiration, security_code, session['username']))
+                cnx.commit()
+            except mysql.connector.Error as err:
+                app.logger.info("error:" + str(err))
+            finally:
+                if 'cnx' in locals() and cnx.is_connected():
+                    cursor.close()
+                    cnx.close()
+    # check if the user is signed in
+    if session.get('username'):
+        return render_template('update-payment.html')
+    else:
+        return redirect('sign-in')
+
+# code for creating an account
+@app.route('/sign-up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'POST':
+        #get all of the information for creating an account
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        #insert the new user into the database
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+
+            # Check if a user with the same username or email already exists
+            cursor.execute("SELECT * FROM users WHERE username = %s OR email = %s", (username, email))
+            existing_user = cursor.fetchone()
+
+            if existing_user:
+                flash('Account with that username or email already exists.', 'error')
+                return redirect('sign-up')
+
+            # If no existing user, proceed with the account creation
+
+            #hash the password and format the password for hashing
+            plain_password_bytes = password.encode('utf-8')
+            hashed_password = bcrypt.hashpw(plain_password_bytes, bcrypt.gensalt( 13 ))
+
+            cursor.execute("INSERT INTO users (first_name, last_name, username, email, password) VALUES (%s, %s, %s, %s, %s)", (first_name, last_name, username, email, hashed_password))
+            cnx.commit()
+            
+            #move the user to the login page on success
+            app.logger.info(f"information in post request: {first_name} {last_name} {username} {email} {password}")
+            return redirect('sign-in')
+
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+    return render_template('sign-up.html')
+
+@app.route('/sign-in', methods=['GET', 'POST'])
+def sign_in():
+    if request.method == 'POST':
+        #get all of the information for logging into an account
+        username = request.form['username']
+        password = request.form['password']
+        result = ""
+
+        #retrieve the user from the database
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(buffered=True)
+            cursor.execute("SELECT password FROM users WHERE username = %s", (username,))
+            result = cursor.fetchone()
+        except mysql.connector.Error as err:
+            app.logger.info("error:" + str(err))
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        #format password for being compared to hashed password
+        plain_password_bytes = password.encode('utf-8')
+
+        #check if user exists
+        if result:
+            stored_hashed_password = result[0]
+            
+            #format hashed password for being compared to password
+            hashed_password_bytes = stored_hashed_password.encode('utf-8')
+            
+            # Compare the user-submitted password with the stored hash
+            if bcrypt.checkpw(plain_password_bytes, hashed_password_bytes):
+                # Password matches, log the user in
+                session['username'] = username
+                return redirect('/')
+            else:
+                # Password does not match
+                flash('Invalid username or password', 'error')
+        else:
+            # Username not found
+            flash('Invalid username or password', 'error')
+    return render_template('sign-in.html')
+    
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
+
+@app.route('/forgot-password')
+def forgot_password():
+    return render_template('forgot-password.html')
+
+#code for loading vehicles on the vehicle selection page
+@app.route('/get-data')
+def get_data():
+    try:
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor(dictionary=True, buffered=True)
+        cursor.execute("SELECT * FROM vehicles;")
+        data = cursor.fetchall()
+    except mysql.connector.Error as err:
+        data = {"error": str(err)}
+    finally:
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
+    return jsonify(data)
+
+#code for loading orders on the sales report page
+@app.route('/get-order-data')
+def get_order_data():
+    try:
+        cnx = mysql.connector.connect(**config)
+        cursor = cnx.cursor(dictionary=True, buffered=True)
+        cursor.execute("SELECT * FROM orders;")
+        data = cursor.fetchall()
+    except mysql.connector.Error as err:
+        data = {"error": str(err)}
+    finally:
+        if 'cnx' in locals() and cnx.is_connected():
+            cursor.close()
+            cnx.close()
+
+    return jsonify(data)
+
+#code for getting user data on the update user page
+@app.route('/get-user-data', methods=['GET', 'POST'])
+def get_user_data():
+    if request.is_json:
+        #get the username target
+        data = request.get_json()
+        username = data.get('username')
+    
+        #find that user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True, buffered=True)
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (username,))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
+    else:
+        #get the logged in user's information
+        try:
+            cnx = mysql.connector.connect(**config)
+            cursor = cnx.cursor(dictionary=True, buffered=True)
+            cursor.execute("SELECT * FROM users WHERE username = %s",  (session['username'],))
+            data = cursor.fetchall()
+        except mysql.connector.Error as err:
+            data = {"error": str(err)}
+        finally:
+            if 'cnx' in locals() and cnx.is_connected():
+                cursor.close()
+                cnx.close()
+
+        return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(debug=True)

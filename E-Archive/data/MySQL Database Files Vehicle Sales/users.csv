@@ -1,0 +1,5 @@
+userID,first_name,last_name,username,email,password,address,address2,city,state,postal_code,card_number,expiration,security_code
+1,The,Admin,Admin,w4543w@gmail.com,$2b$13$gew2n46jck4t.g0au6eQ..ldBaWfbOH6Fu2vxzr3LWqAT6Q7QU/rq,,,,,,,,
+5,John,Smith,j400,w4543w@gmail.com,$2b$13$PdLz.WpBJhYanp2.B3VHIuzZbr94I9F4vvxOh0z4sqtVJZXzAF4Iy,404 Main St.,Apt. 1,Hays,Kansas,43534,5438848981242319,11/27,111
+16,John,Doe,JDoe,jdoe@email.com,$2b$13$igR605JSjEWPvei9fiZC6O1v0bJqAqcS19G3axHCAhmyoKekcMz3K,,,,,,,,
+18,Jane,Doe,JaneDoe,janedoe@email.com,$2b$13$VWC9wgqhO6ji3dtVyAPsIenH6THZun4PsBcpNSRhgSIUKp33UIsjW,,,,,,,,

@@ -1,0 +1,58 @@
+<!--
+written by: Wyatt McDonnell
+tested by: Wyatt McDonnell
+debugged by: Wyatt McDonnell
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicles For Sale</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        {% if session["username"] %}
+        {% if session["username"] == "Admin" %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">Manager</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-user">Manage User Information</a><br>
+                <a href="/vehicle-inventory">Manage Vehicle Inventory</a><br>
+                <a href="/sales-report">Check Sales Report</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="dropdown">
+            <button onclick="dropDown()" class="dropbtn">User</button>
+            <div id="dropdownContent" class="dropdown-content" style="visibility: hidden;">
+                <a href="/update-payment">Mail &amp; Payment Info</a><br>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <button onclick="location.href='/sign-up'" type="button">Sign Up</button>
+        <button onclick="location.href='/sign-in'" type="button">Sign In</button>
+        {% endif %}
+    </nav>
+    <h1>List Of Vehicles</h1>
+    <div id="filter-controls">
+        <select id="sort-by" onchange="applyFilters()">
+            <option value="none">Sort By...</option>
+            <option value="price_desc">Price (High to Low)</option>
+            <option value="price_asc">Price (Low to High)</option>
+            <option value="model_asc">Model (A-Z)</option>
+            <option value="make_asc">Make (A-Z)</option>
+        </select>
+        <input type="text" id="search-input" onkeyup="applySearch()" placeholder="Filter by Make or Model">
+    </div>
+    <div class="catalog-flex" id="catalog-container">
+        <!-- automatically fill this with vehicles from the database -->
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!--
+written by: Wyatt McDonnell
+tested by: Wyatt McDonnell
+debugged by: Wyatt McDonnell
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sign-in-style.css') }}">
+</head>
+<body>
+    <nav>
+        <button onclick="location.href='/'" type="button">Home</button>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <h1>Sign In</h1>
+    <form action="/sign-in" method="post">
+        <label for="username">Username</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <input type="submit" value="Sign In">
+    </form>
+    <div id="forgot-password">
+        <a href="/forgot-password">Forgot password?</a>
+    </div>
+</body>
+</html>
